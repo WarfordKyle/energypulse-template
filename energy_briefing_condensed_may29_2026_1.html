@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EnergyPulse — Gig Energy Corporation · May 29, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* ═══════════════════════════════════════════════════════════
+   GIG ENERGY CORPORATION — BRAND PALETTE v2
+   ─────────────────────────────────────────────────────────
+   #1F1E89  GIG Blue    → structural accents, headers, links
+   #8ACB00  GIG Green   → signals, affirmation, logo mark
+   #BE1C29  GIG Red     → urgency, high-impact, cost-rise
+   #000000  GIG Black   → page canvas (true black)
+   #2B2B2B  Charcoal    → card surfaces, differentiated panels
+   #3D3D3D  Mid-Charcoal→ card headers, inset panels
+   #505050  Light Charcoal→ hairlines, subtle borders
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  /* Brand primaries */
+  --gig-blue:   #1F1E89;
+  --gig-green:  #8ACB00;
+  --gig-red:    #BE1C29;
+  --gig-black:  #000000;
+
+  /* Surface scale — true black canvas, charcoal differentiation */
+  --bg:         #000000;   /* page canvas — true GIG black */
+  --s1:         #2B2B2B;   /* card face — charcoal */
+  --s2:         #3D3D3D;   /* card header / inset panel — mid charcoal */
+  --s3:         #505050;   /* deep accent / table header band */
+
+  /* Hairlines */
+  --border:     #3D3D3D;   /* standard rule */
+  --border2:    #505050;   /* prominent rule */
+
+  /* Accent roles */
+  --acc:        var(--gig-blue);
+  --acc2:       var(--gig-green);
+  --acc3:       var(--gig-red);
+
+  /* Semantic signals */
+  --sig-red:    var(--gig-red);
+  --sig-yellow: #D4A800;
+  --sig-green:  var(--gig-green);
+
+  /* Price change */
+  --price-up:   var(--gig-red);
+  --price-dn:   var(--gig-green);
+
+  /* Text */
+  --txt:        #F0F0F0;   /* primary — near white */
+  --dim:        #A8A8A8;   /* secondary labels */
+  --muted:      #606060;   /* ghost / metadata */
+
+  /* Typography */
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'IBM Plex Sans', sans-serif;
+  --disp: 'Bebas Neue', sans-serif;
+
+  /* Layout */
+  --page-w: 1100px;
+}
+
+html { background: #111; }
+body {
+  background: var(--gig-black);
+  color: var(--txt);
+  font-family: var(--sans);
+  font-size: 12px;
+  line-height: 1.55;
+  width: var(--page-w);
+  margin: 0 auto;
+}
+
+/* ── PAGE SHELLS ── */
+.page {
+  width: var(--page-w);
+  min-height: 1270px;
+  padding: 0 0 40px;         /* no top padding — masthead bleeds to top */
+  position: relative;
+  border-bottom: 2px dashed #2B2B2B;
+  page-break-after: always;
+}
+.page:last-child { border-bottom: none; }
+
+/* page inner content (below masthead) gets side padding */
+.page-inner { padding: 0 28px; }
+
+/* ═══════════════════════════════════════════════════════════
+   GIG ENERGY LOGO — SVG inline component
+   Used in every masthead. Accepts a size via --logo-h.
+   ═══════════════════════════════════════════════════════════ */
+.gig-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex-shrink: 0;
+}
+/* The SVG logo is embedded directly inline in the HTML */
+.gig-logo-wrap svg { display: block; }
+.gig-logo-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.gig-logo-line1 {
+  font-family: var(--disp);
+  font-size: 32px;
+  letter-spacing: 5px;
+  line-height: 1;
+  color: #fff;
+}
+.gig-logo-line1 em { color: var(--gig-green); font-style: normal; }
+.gig-logo-line2 {
+  font-family: var(--mono);
+  font-size: 7.5px;
+  letter-spacing: 2.5px;
+  color: var(--dim);
+  margin-top: 3px;
+  text-transform: uppercase;
+}
+
+/* ── MASTHEAD — PAGE 1 ── */
+.mast {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  background: var(--gig-black);
+  border-bottom: 3px solid var(--gig-blue);
+  margin-bottom: 0;
+  position: relative;
+}
+/* left logo zone */
+.mast-left {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px 12px;
+  border-right: 1px solid #2B2B2B;
+  gap: 0;
+  background: var(--gig-black);
+  min-width: 320px;
+}
+/* centre — briefing title */
+.mast-centre {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 20px;
+}
+.mast-briefing-title {
+  font-family: var(--disp);
+  font-size: 28px;
+  letter-spacing: 4px;
+  color: var(--txt);
+  line-height: 1;
+}
+.mast-briefing-title em { color: var(--gig-green); font-style: normal; }
+.mast-briefing-sub {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--dim);
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+/* right — date/meta */
+.mast-right {
+  text-align: right;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dim);
+  line-height: 1.9;
+  padding: 12px 20px;
+  border-left: 1px solid #2B2B2B;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 220px;
+}
+.mast-date { font-size: 13px; color: var(--gig-green); font-weight: 600; }
+.mast-badge {
+  display: inline-block; padding: 2px 8px;
+  border: 1px solid var(--gig-red); color: var(--gig-red);
+  font-size: 8px; letter-spacing: 1.5px;
+  background: rgba(190,28,41,.10);
+  align-self: flex-end;
+}
+/* green accent underline beneath blue border */
+.mast::after {
+  content: '';
+  position: absolute; bottom: -5px; left: 0; right: 0;
+  height: 1px; background: var(--gig-green);
+}
+
+/* ── PAGE HEADER — PAGES 2-4 ── */
+.page-hd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--gig-black);
+  border-bottom: 3px solid var(--gig-blue);
+  padding: 10px 28px 10px;
+  margin-bottom: 12px;
+  position: relative;
+}
+.page-hd::after {
+  content: '';
+  position: absolute; bottom: -5px; left: 0; right: 0;
+  height: 1px; background: var(--gig-green);
+}
+.page-hd-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.page-hd-divider {
+  width: 1px; height: 32px;
+  background: #3D3D3D;
+}
+.page-hd-meta { }
+.page-hd-info { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; }
+.page-hd-title { font-family: var(--disp); font-size: 16px; letter-spacing: 3px; color: var(--dim); }
+.page-hd-title em { color: var(--gig-green); font-style: normal; }
+.page-num { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; }
+
+/* ── TICKER TAPE ── */
+.ticker {
+  background: var(--gig-blue);
+  color: #fff;
+  overflow: hidden; white-space: nowrap;
+  padding: 5px 0;
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  margin-bottom: 12px;
+  border-top: 2px solid var(--gig-green);
+  border-bottom: 2px solid var(--gig-green);
+  letter-spacing: .4px;
+}
+.tick-i { display: inline-block; animation: tick 60s linear infinite; }
+@keyframes tick { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
+.tick-sep { opacity: .5; margin: 0 16px; color: var(--gig-green); }
+
+/* ── EXEC SUMMARY ── */
+.exec {
+  padding: 10px 15px;
+  border: 1px solid #3D3D3D;
+  border-left: 4px solid var(--gig-blue);
+  background: #1A1A1A;
+  margin-bottom: 10px;
+  font-size: 11.5px; line-height: 1.68;
+}
+.exec-tag { font-family: var(--mono); font-size: 8px; letter-spacing: 2.5px; color: var(--gig-green); margin-bottom: 5px; }
+.exec p { font-weight: 300; color: var(--txt); }
+.exec strong { color: var(--gig-green); font-weight: 600; }
+
+/* ── DATA NOTE ── */
+.dnote {
+  font-family: var(--mono); font-size: 9px; color: var(--muted);
+  border-left: 2px solid #3D3D3D; padding: 3px 8px;
+  margin-bottom: 10px; line-height: 1.5;
+}
+
+/* ── GRID LAYOUTS ── */
+.two-col   { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+
+/* ── SECTION CARDS ── */
+.sec { background: var(--s1); border: 1px solid var(--border); overflow: hidden; }
+.sec-hd {
+  display: flex; align-items: center; gap: 7px;
+  padding: 7px 12px;
+  background: var(--s2);
+  border-bottom: 2px solid var(--gig-blue);
+}
+.sec-hd::before {
+  content: '';
+  display: block; width: 3px; height: 28px;
+  background: var(--gig-green);
+  margin-right: 2px; flex-shrink: 0;
+}
+.sec-num  { font-family: var(--mono); font-size: 8px; color: var(--muted); min-width: 16px; }
+.sec-ico  { font-size: 12px; }
+.sec-ttl  { font-family: var(--disp); font-size: 13px; letter-spacing: 1.8px; color: var(--txt); flex: 1; }
+.sec-body { padding: 9px 12px; }
+
+/* ── PRICE TABLES ── */
+.ptbl { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 10px; margin-bottom: 8px; }
+.ptbl thead tr { background: #1A1A1A; }
+.ptbl th {
+  text-align: left; padding: 4px 5px 5px;
+  border-bottom: 1px solid var(--border2);
+  font-size: 8px; letter-spacing: 1.2px;
+  color: var(--gig-green); font-weight: 600; text-transform: uppercase;
+}
+.ptbl td { padding: 4px 5px; border-bottom: 1px solid rgba(255,255,255,.04); }
+.ptbl tr:last-child td { border-bottom: none; }
+.ptbl tr:nth-child(even) td { background: rgba(0,0,0,.25); }
+.hub { color: var(--dim); }
+.val { color: var(--txt); font-weight: 600; }
+.up  { color: var(--price-up); }
+.dn  { color: var(--price-dn); }
+.neu { color: var(--muted); }
+.est { color: var(--muted); font-style: italic; font-size: 9px; }
+
+/* ── BULLET ITEMS ── */
+.item { padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,.05); font-size: 11.5px; line-height: 1.6; }
+.item:last-child { border-bottom: none; }
+.item-src { font-family: var(--mono); font-size: 9px; color: var(--muted); font-style: italic; margin-top: 1px; }
+.item-src::before { content: '↗ '; color: var(--gig-blue); filter: brightness(2); }
+
+/* ── IMPACT FLAGS ── */
+.fl {
+  display: inline-flex; align-items: center;
+  font-family: var(--mono); font-size: 8px; font-weight: 600;
+  letter-spacing: .5px; padding: 1px 5px; border-radius: 1px;
+  vertical-align: middle; margin-right: 4px; white-space: nowrap;
+}
+.fl-r { background: rgba(190,28,41,.18); color: #FF6B6B; border: 1px solid rgba(190,28,41,.50); }
+.fl-y { background: rgba(212,168,0,.15); color: #FFD84D; border: 1px solid rgba(212,168,0,.40); }
+.fl-g { background: rgba(138,203,0,.13); color: var(--gig-green); border: 1px solid rgba(138,203,0,.40); }
+
+/* ── DIVIDER ── */
+.div { height: 1px; background: linear-gradient(90deg, var(--gig-blue), transparent); margin: 7px 0; opacity: .6; }
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE 3 — WATCHLIST
+   ═══════════════════════════════════════════════════════════ */
+.watch-mast {
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--gig-black);
+  border-bottom: 3px solid var(--gig-green);
+  padding: 12px 28px 12px;
+  margin-bottom: 14px;
+  position: relative;
+}
+.watch-mast::after {
+  content: '';
+  position: absolute; bottom: -5px; left: 0; right: 0;
+  height: 1px; background: var(--gig-blue);
+}
+.watch-mast-left { display: flex; align-items: center; gap: 16px; }
+.watch-mast-divider { width: 1px; height: 36px; background: #3D3D3D; }
+.watch-mast-title-block { }
+.watch-logo { font-family: var(--disp); font-size: 24px; letter-spacing: 3px; color: var(--gig-green); }
+.watch-sub  { font-family: var(--mono); font-size: 8px; letter-spacing: 2px; color: var(--dim); margin-top: 2px; }
+.watch-mast-r { font-family: var(--mono); font-size: 10px; color: var(--dim); text-align: right; line-height: 1.9; }
+
+.watch-card {
+  background: var(--s1);
+  border: 1px solid #3D3D3D;
+  border-left: 4px solid var(--gig-green);
+  margin-bottom: 10px; overflow: hidden;
+}
+.watch-card-hd {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px;
+  background: var(--s2);
+  border-bottom: 1px solid rgba(138,203,0,.20);
+}
+.watch-n   { font-family: var(--disp); font-size: 22px; color: var(--gig-green); min-width: 28px; line-height: 1; }
+.watch-t   { font-family: var(--disp); font-size: 15px; letter-spacing: 1.5px; color: var(--txt); flex: 1; }
+.watch-tag {
+  font-family: var(--mono); font-size: 8px; letter-spacing: 1px;
+  color: var(--gig-green); padding: 2px 6px;
+  border: 1px solid rgba(138,203,0,.40);
+  background: rgba(138,203,0,.08);
+}
+.watch-body { padding: 10px 14px; font-size: 11.5px; line-height: 1.7; color: #CCCCCC; }
+.watch-body strong { color: var(--txt); font-weight: 600; }
+.watch-src {
+  font-family: var(--mono); font-size: 9px; color: var(--muted); font-style: italic;
+  margin-top: 5px; padding-top: 5px;
+  border-top: 1px solid #3D3D3D;
+}
+.watch-src::before { content: '↗ '; color: var(--gig-blue); filter: brightness(2); }
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE 4 — COMPETITIVE INTELLIGENCE
+   ═══════════════════════════════════════════════════════════ */
+.ci-mast {
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--gig-black);
+  border-bottom: 3px solid var(--gig-red);
+  padding: 12px 28px;
+  margin-bottom: 12px;
+  position: relative;
+}
+.ci-mast::after {
+  content: '';
+  position: absolute; bottom: -5px; left: 0; right: 0;
+  height: 1px; background: var(--gig-blue);
+}
+.ci-mast-left { display: flex; align-items: center; gap: 16px; }
+.ci-mast-divider { width: 1px; height: 36px; background: #3D3D3D; }
+.ci-mast-title-block { }
+.ci-mast-logo { font-family: var(--disp); font-size: 24px; letter-spacing: 3px; color: var(--gig-red); }
+.ci-mast-sub  { font-family: var(--mono); font-size: 8px; letter-spacing: 2px; color: var(--dim); margin-top: 2px; }
+.ci-mast-r    { text-align: right; font-family: var(--mono); font-size: 9px; color: var(--dim); line-height: 1.9; }
+.ci-mast-firm { font-size: 12px; color: var(--gig-green); font-weight: 600; letter-spacing: 1px; }
+
+/* Gig positioning box */
+.gig-box {
+  background: #1A1A1A;
+  border: 1px solid #3D3D3D;
+  border-left: 4px solid var(--gig-blue);
+  padding: 10px 14px; margin-bottom: 10px;
+}
+.gig-box-hd {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 8px;
+}
+.gig-box-title { font-family: var(--disp); font-size: 16px; letter-spacing: 2px; color: var(--gig-green); }
+.gig-box-sub   { font-family: var(--mono); font-size: 8px; color: var(--dim); letter-spacing: 1px; margin-top: 2px; }
+
+.gig-pillars { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; margin-bottom: 9px; }
+.gig-pillar {
+  background: #222;
+  border: 1px solid #3D3D3D;
+  border-top: 2px solid var(--gig-blue);
+  padding: 5px 7px; text-align: center;
+}
+.gig-pillar-ico { font-size: 14px; margin-bottom: 2px; }
+.gig-pillar-lbl { font-family: var(--mono); font-size: 8px; color: var(--gig-green); letter-spacing: .6px; line-height: 1.3; }
+
+/* Market signal strip */
+.signal-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 10px; }
+.signal {
+  background: var(--s2);
+  border: 1px solid #3D3D3D;
+  border-top: 2px solid var(--gig-blue);
+  padding: 8px 10px; text-align: center;
+}
+.signal-val { font-family: var(--disp); font-size: 22px; color: var(--gig-green); letter-spacing: 1px; line-height: 1; }
+.signal-lbl { font-family: var(--mono); font-size: 8px; color: var(--dim); letter-spacing: .8px; margin-top: 4px; line-height: 1.4; }
+
+/* Competitor cards */
+.ci-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; margin-bottom: 10px; }
+.ci-card { background: var(--s1); border: 1px solid var(--border); overflow: hidden; }
+.ci-card-hd {
+  padding: 6px 11px;
+  background: var(--s2); border-bottom: 1px solid #505050;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 6px;
+}
+.ci-card-name { font-family: var(--disp); font-size: 13px; letter-spacing: 1.5px; color: var(--txt); line-height: 1.1; }
+.ci-card-type { font-family: var(--mono); font-size: 8px; color: var(--dim); margin-top: 3px; letter-spacing: .8px; }
+.ci-tier { font-family: var(--mono); font-size: 8px; font-weight: 600; padding: 2px 6px; border-radius: 1px; white-space: nowrap; letter-spacing: .5px; }
+.tier-1 { background: rgba(190,28,41,.18); color: #FF6B6B; border: 1px solid rgba(190,28,41,.45); }
+.tier-2 { background: rgba(212,168,0,.14); color: #FFD84D; border: 1px solid rgba(212,168,0,.38); }
+.tier-3 { background: rgba(138,203,0,.12); color: var(--gig-green); border: 1px solid rgba(138,203,0,.35); }
+.ci-card-body { padding: 8px 11px; font-size: 10.5px; line-height: 1.6; color: #C0C0C0; }
+.ci-row { padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,.04); }
+.ci-row:last-child { border-bottom: none; }
+.ci-lbl {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .8px;
+  text-transform: uppercase; margin-bottom: 1px;
+  color: var(--gig-green); opacity: .8;
+}
+.ci-val { font-size: 10.5px; color: var(--txt); }
+.ci-move {
+  margin-top: 5px; padding: 4px 7px;
+  background: #1A1A1A;
+  border-left: 2px solid var(--gig-blue);
+  font-size: 10px; color: #A0A0C0; line-height: 1.5;
+}
+.ci-move-lbl {
+  font-family: var(--mono); font-size: 8px; margin-bottom: 2px; letter-spacing: .8px;
+  color: var(--gig-blue); filter: brightness(2.2);
+}
+
+/* Opp / Threat matrix */
+.matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 10px; }
+.matrix-card { background: var(--s1); border: 1px solid var(--border); overflow: hidden; }
+.matrix-hd { padding: 6px 11px; background: var(--s2); border-bottom: 2px solid; }
+.matrix-hd-ttl { font-family: var(--disp); font-size: 12px; letter-spacing: 1.5px; }
+.opp .matrix-hd { border-bottom-color: var(--gig-green); }
+.opp .matrix-hd-ttl { color: var(--gig-green); }
+.thr .matrix-hd { border-bottom-color: var(--gig-red); }
+.thr .matrix-hd-ttl { color: #FF6B6B; }
+.matrix-body { padding: 8px 11px; }
+.m-item { display: flex; gap: 7px; padding: 3.5px 0; border-bottom: 1px solid rgba(255,255,255,.04); font-size: 10.5px; line-height: 1.5; }
+.m-item:last-child { border-bottom: none; }
+.m-ico { min-width: 14px; padding-top: 1px; }
+
+/* Strategic actions */
+.actions {
+  background: #1A1A1A;
+  border: 1px solid rgba(138,203,0,.30);
+  border-left: 4px solid var(--gig-green);
+  padding: 10px 14px;
+}
+.actions-ttl { font-family: var(--disp); font-size: 14px; letter-spacing: 2px; color: var(--gig-green); margin-bottom: 8px; }
+.action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; }
+.a-item { display: flex; gap: 8px; padding: 3px 0; font-size: 10.5px; line-height: 1.55; border-bottom: 1px solid rgba(138,203,0,.07); }
+.a-item:last-child { border-bottom: none; }
+.a-n { font-family: var(--mono); font-size: 10px; color: var(--gig-green); font-weight: 600; min-width: 16px; }
+
+/* ── FOOTER STRIP ── */
+.foot-strip {
+  position: absolute; bottom: 10px; left: 28px; right: 28px;
+  display: flex; justify-content: space-between;
+  font-family: var(--mono); font-size: 8.5px; color: var(--muted);
+  border-top: 1px solid #2B2B2B; padding-top: 5px;
+}
+.foot-strip span:first-child { color: var(--gig-blue); filter: brightness(2.2); }
+.foot-strip span:last-child  { color: var(--gig-red); filter: brightness(1.2); }
+
+/* Release dates */
+.rel-date { font-family: var(--mono); font-size: 10px; color: var(--gig-green); min-width: 72px; font-weight: 600; }
+
+/* ── PRINT ── */
+@media print {
+  html, body { background: #000; }
+  body { width: 100%; font-size: 10px; }
+  .page { page-break-after: always; min-height: auto; }
+  .ticker { display: none; }
+  .foot-strip { position: relative; margin-top: 10px; }
+}
+
+/* ── SPACER USED BELOW MASTHEADS ── */
+.mast-spacer { height: 12px; }
+
+/* ── REAL GIG ENERGY SVG LOGO ── */
+.gig-svg-logo {
+  display: block;
+  /* Page 1 large masthead */
+  height: 44px;
+  width: auto;
+}
+/* Compact logos on pages 2-4 use the same class; 
+   their parent containers constrain them */
+.page-hd .gig-svg-logo,
+.watch-mast .gig-svg-logo,
+.ci-mast .gig-svg-logo { height: 30px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ PAGE 1 ═══ -->
+<div class="page">
+
+  <!-- MASTHEAD WITH LOGO -->
+  <div class="mast">
+    <!-- LEFT: Gig Energy logo -->
+    <div class="mast-left">
+      <div class="gig-logo-wrap"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="gig-svg-logo" aria-label="Gig Energy Corporation — Energy Managed." viewBox="0 0 239.789 56.8559">
+<defs>
+<clipPath id="clip-0">
+<path clip-rule="nonzero" d="M 25 0 L 131 0 L 131 56.855469 L 25 56.855469 Z M 25 0 "/>
+</clipPath>
+<clipPath id="clip-1">
+<path clip-rule="nonzero" d="M 20 0 L 136 0 L 136 56.855469 L 20 56.855469 Z M 20 0 "/>
+</clipPath>
+<clipPath id="clip-2">
+<path clip-rule="nonzero" d="M 0 0 L 52 0 L 52 56.855469 L 0 56.855469 Z M 0 0 "/>
+</clipPath>
+<clipPath id="clip-3">
+<path clip-rule="nonzero" d="M 0 0 L 61 0 L 61 56.855469 L 0 56.855469 Z M 0 0 "/>
+</clipPath>
+<clipPath id="clip-4">
+<path clip-rule="nonzero" d="M 8 0 L 85 0 L 85 56.855469 L 8 56.855469 Z M 8 0 "/>
+</clipPath>
+</defs>
+<path fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="miter" stroke="rgb(74.510193%, 11.764526%, 17.64679%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.0002625 0.00135 L 0.0002625 -16.443962 " transform="matrix(1, 0, 0, -1, 77.9763, 4.4701)"/>
+<g clip-path="url(#clip-0)">
+<path fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="miter" stroke="rgb(55.2948%, 78.823853%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.0005125 0.00113125 C 3.094262 -1.67465 5.203637 -4.98715 5.203637 -8.79965 C 5.203637 -14.29965 0.816919 -18.760588 -4.593238 -18.760588 C -10.003394 -18.760588 -14.390113 -14.29965 -14.390113 -8.79965 C -14.390113 -4.948088 -12.241675 -1.608244 -9.097144 0.0480062 " transform="matrix(1, 0, 0, -1, 82.5698, 13.3566)"/>
+</g>
+<g clip-path="url(#clip-1)">
+<path fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="miter" stroke="rgb(14.901733%, 13.33313%, 52.549744%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.00185 -0.00024375 C 5.755756 -2.043213 9.888569 -7.613525 9.888569 -14.164306 C 9.888569 -22.449463 3.2831 -29.164306 -4.865338 -29.164306 C -13.013775 -29.164306 -19.619244 -22.449463 -19.619244 -14.164306 C -19.619244 -7.422119 -15.244244 -1.718994 -9.224713 0.171631 " transform="matrix(1, 0, 0, -1, 82.8419, 8.2146)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 23.019531 19.660156 C 23.429688 19.660156 23.699219 19.898438 23.699219 20.339844 L 23.699219 31.199219 C 23.699219 31.8125 23.324219 32.152344 23.019531 32.359375 C 21.386719 33.34375 18.96875 34.027344 15.496094 34.027344 C 8.039062 34.027344 3.953125 30.113281 3.953125 21.703125 C 3.953125 13.328125 8.074219 9.378906 15.734375 9.378906 C 18.59375 9.378906 21.042969 10.128906 22.40625 10.910156 C 22.816406 11.113281 23.019531 11.351562 22.847656 11.726562 L 22.167969 13.496094 C 21.996094 13.871094 21.726562 14.078125 21.214844 13.839844 C 20.058594 13.328125 18.285156 12.75 16.109375 12.75 C 10.285156 12.75 7.765625 15.507812 7.765625 21.703125 C 7.765625 27.964844 10.355469 30.691406 15.835938 30.691406 C 17.539062 30.691406 19.273438 30.28125 20.195312 29.804688 L 20.195312 22.757812 L 15.800781 22.757812 C 15.324219 22.757812 15.085938 22.554688 15.085938 22.109375 L 15.085938 20.339844 C 15.085938 19.898438 15.324219 19.660156 15.800781 19.660156 Z M 23.019531 19.660156 "/>
+<g clip-path="url(#clip-2)">
+<path fill="none" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(100%,100%,100%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.00053125 -0.00045625 C 0.410687 -0.00045625 0.680219 -0.238738 0.680219 -0.680144 L 0.680219 -11.539519 C 0.680219 -12.1528 0.305219 -12.492644 0.00053125 -12.699675 C -1.632281 -13.68405 -4.05025 -14.367644 -7.522906 -14.367644 C -14.979938 -14.367644 -19.065875 -10.453581 -19.065875 -2.043425 C -19.065875 6.331575 -14.944781 10.280794 -7.284625 10.280794 C -4.42525 10.280794 -1.976031 9.530794 -0.61275 8.749544 C -0.202594 8.546419 0.00053125 8.308137 -0.171344 7.933137 L -0.851031 6.163606 C -1.022906 5.788606 -1.292438 5.581575 -1.804156 5.819856 C -2.960406 6.331575 -4.733844 6.9097 -6.909625 6.9097 C -12.733844 6.9097 -15.253375 4.151887 -15.253375 -2.043425 C -15.253375 -8.305144 -12.663531 -11.031706 -7.183063 -11.031706 C -5.479938 -11.031706 -3.745563 -10.62155 -2.823688 -10.144988 L -2.823688 -3.098113 L -7.218219 -3.098113 C -7.694781 -3.098113 -7.933063 -2.894988 -7.933063 -2.449675 L -7.933063 -0.680144 C -7.933063 -0.238738 -7.694781 -0.00045625 -7.218219 -0.00045625 Z M 0.00053125 -0.00045625 " transform="matrix(1, 0, 0, -1, 23.019, 19.6597)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 28.636719 10.433594 C 28.636719 9.957031 28.84375 9.753906 29.285156 9.753906 L 31.667969 9.753906 C 32.144531 9.753906 32.382812 9.957031 32.382812 10.433594 L 32.382812 33.003906 C 32.382812 33.480469 32.144531 33.6875 31.667969 33.6875 L 29.285156 33.6875 C 28.84375 33.6875 28.636719 33.480469 28.636719 33.003906 Z M 28.636719 10.433594 "/>
+<g clip-path="url(#clip-3)">
+<path fill="none" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(100%,100%,100%)" stroke-opacity="1" stroke-miterlimit="10" d="M -0.00128125 0.00040625 C -0.00128125 0.476969 0.20575 0.680094 0.647156 0.680094 L 3.029969 0.680094 C 3.506531 0.680094 3.744812 0.476969 3.744812 0.00040625 L 3.744812 -22.569906 C 3.744812 -23.046469 3.506531 -23.2535 3.029969 -23.2535 L 0.647156 -23.2535 C 0.20575 -23.2535 -0.00128125 -23.046469 -0.00128125 -22.569906 Z M -0.00128125 0.00040625 " transform="matrix(1, 0, 0, -1, 28.638, 10.434)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 55.769531 19.660156 C 56.179688 19.660156 56.453125 19.898438 56.453125 20.339844 L 56.453125 31.199219 C 56.453125 31.8125 56.078125 32.152344 55.769531 32.359375 C 54.136719 33.34375 51.71875 34.027344 48.246094 34.027344 C 40.792969 34.027344 36.707031 30.113281 36.707031 21.703125 C 36.707031 13.328125 40.824219 9.378906 48.484375 9.378906 C 51.34375 9.378906 53.796875 10.128906 55.15625 10.910156 C 55.566406 11.113281 55.769531 11.351562 55.601562 11.726562 L 54.917969 13.496094 C 54.75 13.871094 54.476562 14.078125 53.96875 13.839844 C 52.808594 13.328125 51.039062 12.75 48.859375 12.75 C 43.039062 12.75 40.519531 15.507812 40.519531 21.703125 C 40.519531 27.964844 43.105469 30.691406 48.585938 30.691406 C 50.289062 30.691406 52.027344 30.28125 52.945312 29.804688 L 52.945312 22.757812 L 48.554688 22.757812 C 48.078125 22.757812 47.839844 22.554688 47.839844 22.109375 L 47.839844 20.339844 C 47.839844 19.898438 48.078125 19.660156 48.554688 19.660156 Z M 55.769531 19.660156 "/>
+<g clip-path="url(#clip-4)">
+<path fill="none" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(100%,100%,100%)" stroke-opacity="1" stroke-miterlimit="10" d="M -0.00126875 -0.00045625 C 0.408887 -0.00045625 0.682325 -0.238738 0.682325 -0.680144 L 0.682325 -11.539519 C 0.682325 -12.1528 0.307325 -12.492644 -0.00126875 -12.699675 C -1.634081 -13.68405 -4.05205 -14.367644 -7.524706 -14.367644 C -14.977831 -14.367644 -19.063769 -10.453581 -19.063769 -2.043425 C -19.063769 6.331575 -14.946581 10.280794 -7.286425 10.280794 C -4.42705 10.280794 -1.973925 9.530794 -0.61455 8.749544 C -0.204394 8.546419 -0.00126875 8.308137 -0.169238 7.933137 L -0.852831 6.163606 C -1.0208 5.788606 -1.294238 5.581575 -1.80205 5.819856 C -2.962206 6.331575 -4.731738 6.9097 -6.911425 6.9097 C -12.731738 6.9097 -15.251269 4.151887 -15.251269 -2.043425 C -15.251269 -8.305144 -12.665331 -11.031706 -7.184863 -11.031706 C -5.481738 -11.031706 -3.743456 -10.62155 -2.825488 -10.144988 L -2.825488 -3.098113 L -7.216113 -3.098113 C -7.692675 -3.098113 -7.930956 -2.894988 -7.930956 -2.449675 L -7.930956 -0.680144 C -7.930956 -0.238738 -7.692675 -0.00045625 -7.216113 -0.00045625 Z M -0.00126875 -0.00045625 " transform="matrix(1, 0, 0, -1, 55.7708, 19.6597)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 102.046875 20.457031 L 115.996094 20.457031 L 115.996094 20.234375 C 115.996094 15.84375 113.824219 12.714844 109.25 12.714844 C 104.902344 12.714844 102.320312 15.253906 102.046875 20.457031 M 116.539062 29.5625 C 117.039062 29.289062 117.355469 29.5625 117.535156 29.972656 L 118.214844 31.644531 C 118.304688 32.050781 118.078125 32.28125 117.71875 32.460938 C 115.859375 33.410156 113.28125 34.132812 110.425781 34.132812 C 102.953125 34.132812 98.425781 29.425781 98.425781 21.90625 C 98.425781 13.984375 102.636719 9.59375 109.25 9.59375 C 115.953125 9.59375 119.527344 14.164062 119.527344 20.507812 L 119.527344 22.769531 C 119.527344 23.3125 119.304688 23.492188 118.757812 23.492188 L 102.046875 23.492188 C 102.367188 27.933594 105.625 31.011719 110.609375 31.011719 C 113.234375 31.011719 114.820312 30.46875 116.539062 29.5625 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 144.808594 32.871094 C 144.808594 33.367188 144.582031 33.59375 144.085938 33.59375 L 141.867188 33.59375 C 141.367188 33.59375 141.144531 33.367188 141.144531 32.871094 L 141.144531 18.605469 C 141.144531 15.070312 139.554688 12.988281 135.390625 12.988281 C 131.042969 12.988281 128.371094 15.660156 128.371094 19.691406 L 128.371094 32.871094 C 128.371094 33.367188 128.144531 33.59375 127.648438 33.59375 L 125.425781 33.59375 C 124.929688 33.59375 124.75 33.367188 124.75 32.871094 L 124.75 10.859375 C 124.75 10.363281 124.929688 10.132812 125.425781 10.132812 L 127.601562 10.132812 C 128.101562 10.132812 128.324219 10.363281 128.324219 10.816406 L 128.371094 13.757812 C 129.367188 11.855469 131.496094 9.59375 136.386719 9.59375 C 142.046875 9.59375 144.808594 12.945312 144.808594 18.105469 Z M 144.808594 32.871094 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 153.472656 20.457031 L 167.421875 20.457031 L 167.421875 20.234375 C 167.421875 15.84375 165.246094 12.714844 160.675781 12.714844 C 156.328125 12.714844 153.746094 15.253906 153.472656 20.457031 M 167.964844 29.5625 C 168.460938 29.289062 168.777344 29.5625 168.960938 29.972656 L 169.640625 31.644531 C 169.730469 32.050781 169.503906 32.28125 169.140625 32.460938 C 167.285156 33.410156 164.703125 34.132812 161.851562 34.132812 C 154.378906 34.132812 149.851562 29.425781 149.851562 21.90625 C 149.851562 13.984375 154.0625 9.59375 160.675781 9.59375 C 167.375 9.59375 170.953125 14.164062 170.953125 20.507812 L 170.953125 22.769531 C 170.953125 23.3125 170.726562 23.492188 170.183594 23.492188 L 153.472656 23.492188 C 153.789062 27.933594 157.050781 31.011719 162.03125 31.011719 C 164.65625 31.011719 166.242188 30.46875 167.964844 29.5625 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 179.164062 10.132812 C 179.660156 10.132812 179.890625 10.363281 179.890625 10.816406 L 179.890625 15.253906 C 180.660156 13.214844 183.195312 10.046875 187.539062 10.046875 C 187.859375 10.046875 188.085938 10.132812 188.085938 10.589844 L 188.085938 13.441406 C 188.085938 13.894531 187.90625 14.027344 187.496094 14.027344 C 187.222656 14.027344 186.996094 13.9375 186.410156 13.9375 C 182.648438 13.9375 179.890625 18.242188 179.890625 22.453125 L 179.890625 32.871094 C 179.890625 33.367188 179.660156 33.59375 179.164062 33.59375 L 176.945312 33.59375 C 176.445312 33.59375 176.21875 33.367188 176.21875 32.871094 L 176.21875 10.859375 C 176.21875 10.363281 176.445312 10.132812 176.945312 10.132812 Z M 179.164062 10.132812 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 200.773438 12.714844 C 196.652344 12.714844 193.980469 14.847656 193.980469 20.644531 C 193.980469 26.4375 196.652344 28.519531 200.773438 28.519531 C 204.984375 28.519531 207.65625 25.714844 207.65625 20.328125 C 207.65625 15.027344 204.984375 12.714844 200.773438 12.714844 M 211.277344 30.242188 C 211.277344 35.949219 207.109375 39.117188 200.773438 39.117188 C 197.875 39.117188 195.019531 38.753906 192.847656 37.757812 C 192.53125 37.621094 192.257812 37.398438 192.394531 37.03125 L 193.074219 35.179688 C 193.210938 34.769531 193.390625 34.542969 193.933594 34.722656 C 196.019531 35.539062 198.28125 35.902344 200.683594 35.902344 C 204.941406 35.902344 207.699219 33.773438 207.699219 30.015625 L 207.699219 27.433594 C 206.480469 30.152344 203.445312 31.554688 200.140625 31.554688 C 194.570312 31.554688 190.265625 28.292969 190.265625 20.644531 C 190.265625 12.988281 194.386719 9.59375 200.003906 9.59375 C 203.355469 9.59375 206.523438 11.175781 207.699219 13.578125 L 207.699219 10.816406 C 207.746094 10.363281 207.929688 10.132812 208.425781 10.132812 L 210.601562 10.132812 C 211.097656 10.132812 211.277344 10.363281 211.277344 10.859375 Z M 211.277344 30.242188 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 228.457031 32.097656 C 227.007812 36.851562 225.332031 38.753906 220.890625 38.753906 C 219.625 38.753906 218.265625 38.53125 217.585938 38.257812 C 217.222656 38.121094 216.953125 37.941406 217.042969 37.578125 L 217.585938 35.71875 C 217.722656 35.3125 217.859375 35.179688 218.355469 35.222656 C 218.808594 35.3125 219.398438 35.539062 220.667969 35.539062 C 222.792969 35.539062 223.882812 34.542969 223.882812 33.050781 C 223.882812 32.597656 223.792969 32.097656 223.5625 31.554688 L 215.503906 10.90625 C 215.324219 10.453125 215.503906 10.132812 216 10.132812 L 218.402344 10.132812 C 218.851562 10.132812 219.035156 10.40625 219.171875 10.816406 L 223.699219 22.722656 L 226.054688 29.742188 L 226.144531 29.742188 L 228.273438 22.722656 L 232.078125 10.816406 C 232.210938 10.40625 232.394531 10.132812 232.847656 10.132812 L 235.246094 10.132812 C 235.746094 10.132812 235.925781 10.453125 235.792969 10.90625 Z M 228.457031 32.097656 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 141.851562 47.09375 L 141.253906 50.476562 L 145.230469 50.476562 C 145.332031 50.476562 145.386719 50.511719 145.367188 50.625 L 145.296875 51.019531 C 145.277344 51.132812 145.207031 51.179688 145.109375 51.179688 L 140.523438 51.179688 C 140.414062 51.179688 140.371094 51.132812 140.390625 51.019531 L 141.863281 42.671875 C 141.878906 42.570312 141.9375 42.523438 142.039062 42.523438 L 146.597656 42.523438 C 146.710938 42.523438 146.75 42.570312 146.734375 42.671875 L 146.664062 43.066406 C 146.644531 43.175781 146.585938 43.226562 146.472656 43.226562 L 142.53125 43.226562 L 141.972656 46.398438 L 145.789062 46.398438 C 145.890625 46.398438 145.929688 46.460938 145.910156 46.558594 L 145.84375 46.929688 C 145.828125 47.027344 145.769531 47.09375 145.667969 47.09375 Z M 141.851562 47.09375 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 152.191406 51.03125 C 152.175781 51.132812 152.128906 51.179688 152.019531 51.179688 L 151.597656 51.179688 C 151.5 51.179688 151.457031 51.132812 151.472656 51.03125 L 152.179688 47.042969 C 152.359375 46.003906 151.992188 45.375 150.777344 45.375 C 149.519531 45.375 148.535156 46.175781 148.335938 47.328125 L 147.679688 51.03125 C 147.664062 51.132812 147.605469 51.179688 147.507812 51.179688 L 147.074219 51.179688 C 146.976562 51.179688 146.945312 51.132812 146.964844 51.03125 L 148.027344 45.003906 C 148.046875 44.894531 148.09375 44.84375 148.191406 44.84375 L 148.609375 44.84375 C 148.710938 44.84375 148.75 44.894531 148.734375 44.992188 L 148.574219 45.957031 C 148.933594 45.398438 149.675781 44.695312 151.058594 44.695312 C 152.582031 44.695312 153.152344 45.585938 152.910156 46.957031 Z M 152.191406 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 155.121094 47.734375 L 159.25 47.734375 L 159.269531 47.636719 C 159.503906 46.289062 159.042969 45.324219 157.671875 45.324219 C 156.335938 45.324219 155.460938 46.152344 155.121094 47.734375 M 158.800781 50.289062 C 158.921875 50.230469 158.972656 50.289062 158.996094 50.378906 L 159.0625 50.699219 C 159.070312 50.785156 159.023438 50.835938 158.933594 50.871094 C 158.390625 51.132812 157.664062 51.328125 156.886719 51.328125 C 154.910156 51.328125 153.992188 50.066406 154.355469 48.019531 C 154.726562 45.90625 156.003906 44.695312 157.785156 44.695312 C 159.5625 44.695312 160.269531 45.957031 159.964844 47.683594 L 159.875 48.191406 C 159.855469 48.300781 159.796875 48.339844 159.6875 48.339844 L 155.015625 48.339844 C 154.824219 49.773438 155.539062 50.699219 157.035156 50.699219 C 157.761719 50.699219 158.285156 50.550781 158.800781 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 162.714844 44.84375 C 162.8125 44.84375 162.851562 44.894531 162.835938 44.992188 L 162.597656 46.351562 C 162.910156 45.757812 163.792969 44.820312 165.015625 44.820312 C 165.089844 44.820312 165.136719 44.832031 165.121094 44.929688 L 165.027344 45.460938 C 165.007812 45.558594 164.953125 45.597656 164.867188 45.597656 C 164.816406 45.597656 164.757812 45.574219 164.636719 45.574219 C 163.597656 45.574219 162.523438 46.769531 162.3125 47.957031 L 161.769531 51.03125 C 161.753906 51.132812 161.695312 51.179688 161.597656 51.179688 L 161.175781 51.179688 C 161.0625 51.179688 161.023438 51.132812 161.039062 51.03125 L 162.105469 45.003906 C 162.121094 44.894531 162.179688 44.84375 162.292969 44.84375 Z M 162.714844 44.84375 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 168.574219 45.324219 C 167.324219 45.324219 166.441406 46.054688 166.15625 47.683594 C 165.867188 49.316406 166.496094 50.03125 167.742188 50.03125 C 169.003906 50.03125 169.9375 49.15625 170.210938 47.597656 C 170.480469 46.066406 169.832031 45.324219 168.574219 45.324219 M 170.453125 50.289062 C 170.175781 51.871094 168.96875 52.6875 167.3125 52.6875 C 166.558594 52.6875 165.800781 52.5625 165.269531 52.292969 C 165.214844 52.253906 165.167969 52.21875 165.207031 52.144531 L 165.40625 51.785156 C 165.449219 51.699219 165.492188 51.648438 165.597656 51.6875 C 166.132812 51.933594 166.757812 52.046875 167.414062 52.046875 C 168.660156 52.046875 169.535156 51.441406 169.746094 50.242188 L 169.902344 49.363281 C 169.421875 50.179688 168.511719 50.648438 167.523438 50.648438 C 165.992188 50.648438 165.074219 49.6875 165.425781 47.683594 C 165.777344 45.683594 167.003906 44.695312 168.546875 44.695312 C 169.539062 44.695312 170.316406 45.175781 170.507812 45.929688 L 170.671875 44.992188 C 170.6875 44.894531 170.746094 44.84375 170.855469 44.84375 L 171.265625 44.84375 C 171.378906 44.84375 171.40625 44.894531 171.386719 45.003906 Z M 170.453125 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 174.960938 50.933594 C 174.371094 52.105469 173.828125 52.589844 172.792969 52.589844 C 172.457031 52.589844 172.160156 52.527344 171.984375 52.464844 C 171.914062 52.441406 171.863281 52.390625 171.898438 52.316406 L 172.0625 51.957031 C 172.101562 51.871094 172.148438 51.835938 172.253906 51.859375 C 172.382812 51.882812 172.558594 51.945312 172.867188 51.945312 C 173.683594 51.945312 174.132812 51.292969 174.027344 50.773438 L 172.792969 45.015625 C 172.773438 44.917969 172.808594 44.84375 172.921875 44.84375 L 173.378906 44.84375 C 173.476562 44.84375 173.503906 44.90625 173.527344 44.992188 L 174.226562 48.375 L 174.585938 50.402344 L 174.609375 50.402344 L 175.609375 48.375 L 177.34375 44.992188 C 177.382812 44.90625 177.433594 44.84375 177.53125 44.84375 L 177.988281 44.84375 C 178.101562 44.84375 178.125 44.917969 178.070312 45.015625 Z M 174.960938 50.933594 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 186.253906 48.5 L 184.292969 43.855469 L 183.03125 51.019531 C 183.011719 51.132812 182.953125 51.179688 182.839844 51.179688 L 182.398438 51.179688 C 182.285156 51.179688 182.242188 51.132812 182.265625 51.019531 L 183.734375 42.671875 C 183.753906 42.570312 183.8125 42.523438 183.921875 42.523438 L 184.40625 42.523438 C 184.503906 42.523438 184.5625 42.546875 184.585938 42.621094 L 186.652344 47.449219 L 190.417969 42.621094 C 190.46875 42.546875 190.535156 42.523438 190.632812 42.523438 L 191.117188 42.523438 C 191.226562 42.523438 191.253906 42.570312 191.238281 42.671875 L 189.765625 51.019531 C 189.746094 51.132812 189.699219 51.179688 189.589844 51.179688 L 189.132812 51.179688 C 189.03125 51.179688 188.992188 51.132812 189.011719 51.019531 L 190.273438 43.855469 L 186.675781 48.5 C 186.613281 48.574219 186.53125 48.609375 186.445312 48.609375 C 186.359375 48.609375 186.292969 48.574219 186.253906 48.5 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 196.539062 48.019531 C 194.398438 48.09375 192.664062 48.179688 192.433594 49.488281 C 192.3125 50.167969 192.71875 50.6875 193.753906 50.6875 C 195.289062 50.6875 196.222656 49.796875 196.410156 48.734375 Z M 196.710938 51.03125 C 196.691406 51.132812 196.636719 51.179688 196.535156 51.179688 L 196.140625 51.179688 C 196.042969 51.179688 196.011719 51.132812 196.03125 51.03125 L 196.210938 50.007812 C 195.890625 50.488281 195.15625 51.292969 193.539062 51.292969 C 192.152344 51.292969 191.539062 50.574219 191.726562 49.511719 C 192.035156 47.746094 193.996094 47.5 196.640625 47.4375 L 196.722656 46.957031 C 196.917969 45.855469 196.539062 45.351562 195.265625 45.351562 C 194.472656 45.351562 193.761719 45.535156 193.164062 45.769531 C 193.070312 45.808594 193.003906 45.769531 192.996094 45.683594 L 192.945312 45.324219 C 192.9375 45.238281 192.980469 45.191406 193.0625 45.152344 C 193.703125 44.894531 194.601562 44.695312 195.429688 44.695312 C 197.136719 44.695312 197.691406 45.460938 197.433594 46.933594 Z M 196.710938 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 203.902344 51.03125 C 203.886719 51.132812 203.839844 51.179688 203.730469 51.179688 L 203.308594 51.179688 C 203.210938 51.179688 203.167969 51.132812 203.1875 51.03125 L 203.890625 47.042969 C 204.074219 46.003906 203.703125 45.375 202.492188 45.375 C 201.230469 45.375 200.25 46.175781 200.046875 47.328125 L 199.390625 51.03125 C 199.375 51.132812 199.316406 51.179688 199.21875 51.179688 L 198.785156 51.179688 C 198.6875 51.179688 198.65625 51.132812 198.675781 51.03125 L 199.738281 45.003906 C 199.757812 44.894531 199.804688 44.84375 199.902344 44.84375 L 200.320312 44.84375 C 200.421875 44.84375 200.460938 44.894531 200.445312 44.992188 L 200.289062 45.957031 C 200.644531 45.398438 201.386719 44.695312 202.773438 44.695312 C 204.292969 44.695312 204.863281 45.585938 204.621094 46.957031 Z M 203.902344 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 210.480469 48.019531 C 208.339844 48.09375 206.605469 48.179688 206.375 49.488281 C 206.253906 50.167969 206.660156 50.6875 207.695312 50.6875 C 209.230469 50.6875 210.164062 49.796875 210.351562 48.734375 Z M 210.652344 51.03125 C 210.632812 51.132812 210.578125 51.179688 210.476562 51.179688 L 210.082031 51.179688 C 209.984375 51.179688 209.953125 51.132812 209.972656 51.03125 L 210.152344 50.007812 C 209.832031 50.488281 209.097656 51.292969 207.480469 51.292969 C 206.09375 51.292969 205.480469 50.574219 205.667969 49.511719 C 205.976562 47.746094 207.9375 47.5 210.582031 47.4375 L 210.664062 46.957031 C 210.859375 45.855469 210.480469 45.351562 209.207031 45.351562 C 208.414062 45.351562 207.703125 45.535156 207.105469 45.769531 C 207.011719 45.808594 206.945312 45.769531 206.9375 45.683594 L 206.886719 45.324219 C 206.878906 45.238281 206.921875 45.191406 207.003906 45.152344 C 207.644531 44.894531 208.542969 44.695312 209.371094 44.695312 C 211.078125 44.695312 211.632812 45.460938 211.375 46.933594 Z M 210.652344 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 216.007812 45.324219 C 214.761719 45.324219 213.875 46.054688 213.589844 47.683594 C 213.300781 49.316406 213.929688 50.03125 215.179688 50.03125 C 216.4375 50.03125 217.371094 49.15625 217.648438 47.597656 C 217.917969 46.066406 217.269531 45.324219 216.007812 45.324219 M 217.890625 50.289062 C 217.609375 51.871094 216.402344 52.6875 214.746094 52.6875 C 213.992188 52.6875 213.238281 52.5625 212.703125 52.292969 C 212.648438 52.253906 212.605469 52.21875 212.644531 52.144531 L 212.84375 51.785156 C 212.882812 51.699219 212.929688 51.648438 213.03125 51.6875 C 213.570312 51.933594 214.195312 52.046875 214.847656 52.046875 C 216.097656 52.046875 216.96875 51.441406 217.179688 50.242188 L 217.335938 49.363281 C 216.859375 50.179688 215.945312 50.648438 214.957031 50.648438 C 213.425781 50.648438 212.507812 49.6875 212.859375 47.683594 C 213.214844 45.683594 214.4375 44.695312 215.984375 44.695312 C 216.972656 44.695312 217.75 45.175781 217.941406 45.929688 L 218.105469 44.992188 C 218.125 44.894531 218.183594 44.84375 218.292969 44.84375 L 218.699219 44.84375 C 218.8125 44.84375 218.839844 44.894531 218.820312 45.003906 Z M 217.890625 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 220.75 47.734375 L 224.878906 47.734375 L 224.894531 47.636719 C 225.132812 46.289062 224.671875 45.324219 223.300781 45.324219 C 221.964844 45.324219 221.089844 46.152344 220.75 47.734375 M 224.425781 50.289062 C 224.550781 50.230469 224.601562 50.289062 224.621094 50.378906 L 224.6875 50.699219 C 224.699219 50.785156 224.652344 50.835938 224.558594 50.871094 C 224.019531 51.132812 223.292969 51.328125 222.515625 51.328125 C 220.535156 51.328125 219.621094 50.066406 219.980469 48.019531 C 220.355469 45.90625 221.632812 44.695312 223.410156 44.695312 C 225.191406 44.695312 225.894531 45.957031 225.589844 47.683594 L 225.5 48.191406 C 225.480469 48.300781 225.425781 48.339844 225.316406 48.339844 L 220.644531 48.339844 C 220.453125 49.773438 221.164062 50.699219 222.660156 50.699219 C 223.390625 50.699219 223.910156 50.550781 224.425781 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 230.171875 45.335938 C 228.75 45.335938 227.855469 46.191406 227.535156 48.003906 C 227.21875 49.808594 227.808594 50.660156 229.230469 50.660156 C 230.640625 50.660156 231.632812 49.734375 231.9375 48.003906 C 232.242188 46.277344 231.578125 45.335938 230.171875 45.335938 M 231.597656 49.933594 C 231.050781 50.859375 230.105469 51.304688 228.992188 51.304688 C 227.277344 51.304688 226.410156 50.179688 226.796875 48.003906 C 227.179688 45.832031 228.441406 44.695312 230.160156 44.695312 C 231.273438 44.695312 232.0625 45.191406 232.261719 46.089844 L 232.867188 42.65625 C 232.886719 42.558594 232.941406 42.523438 233.039062 42.523438 L 233.460938 42.523438 C 233.570312 42.523438 233.613281 42.558594 233.597656 42.65625 L 232.117188 51.03125 C 232.101562 51.128906 232.042969 51.179688 231.933594 51.179688 L 231.511719 51.179688 C 231.414062 51.179688 231.386719 51.128906 231.402344 51.03125 Z M 231.597656 49.933594 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 234.183594 50.179688 C 234.203125 50.082031 234.261719 50.03125 234.359375 50.03125 L 235.015625 50.03125 C 235.125 50.03125 235.15625 50.082031 235.136719 50.179688 L 234.988281 51.03125 C 234.96875 51.132812 234.921875 51.179688 234.824219 51.179688 L 234.15625 51.179688 C 234.046875 51.179688 234.015625 51.132812 234.035156 51.03125 Z M 234.183594 50.179688 "/>
+</svg></div>
+    </div>
+
+    <!-- CENTRE: Briefing title -->
+    <div class="mast-centre">
+      <div class="mast-briefing-title">ENERGY<em>PULSE</em></div>
+      <div class="mast-briefing-sub">CONDENSED DAILY MARKET INTELLIGENCE BRIEFING</div>
+    </div>
+
+    <!-- RIGHT: Date / meta -->
+    <div class="mast-right">
+      <div class="mast-date">FRIDAY, MAY 29, 2026</div>
+      <div>MORNING EDITION · 06:30 ET</div>
+      <div class="mast-badge">ANALYST COMPILED · ALL SECTIONS</div>
+    </div>
+  </div>
+
+  <div class="mast-spacer"></div>
+
+  <!-- TICKER -->
+  <div class="page-inner">
+  <div class="ticker">
+    <span class="tick-i">
+      HH NG JUL'26 ~$3.05/MMBtu &nbsp;▼&nbsp; WTI CRUDE ~$71.40/bbl
+      <span class="tick-sep">///</span>
+      ERCOT DA ~$38–48/MWh &nbsp;·&nbsp; PJM DA ~$40–55/MWh &nbsp;·&nbsp; CAISO DA ~$42–62/MWh
+      <span class="tick-sep">///</span>
+      EIA STORAGE +95 Bcf vs +78 Bcf est · SURPLUS +19% vs 5YR AVG
+      <span class="tick-sep">///</span>
+      TEXAS HEAT RIDGE DEVELOPING · ERCOT 4CP WATCH STARTS JUNE 3
+      <span class="tick-sep">///</span>
+      OPEC+ STEADY THROUGH Q3 · NOAA: ABOVE-NORMAL HURRICANE SEASON
+      <span class="tick-sep">///</span>
+      PRICES INDICATIVE — VERIFY AGAINST PRIMARY SOURCES
+    </span>
+  </div>
+
+  <div class="exec">
+    <div class="exec-tag">Executive Summary</div>
+    <p>Energy markets head into Memorial Day weekend with a <strong>bearish natural gas backdrop</strong> — storage surplus at +19% above the 5-year average after Thursday's above-consensus +95 Bcf injection — while <strong>electricity markets are range-bound</strong> across major ISOs as holiday load troughs; the critical near-term catalyst is a developing Texas heat ridge arriving June 3–5 that could push ERCOT demand toward 70+ GW and tighten already-thin reserve margins. On the policy front, <strong>FERC deficiency letters to PJM</strong> on Order 1920 transmission compliance are creating developer uncertainty, Empire Wind 2 secured its final federal approval, and NOAA's above-normal 2026 hurricane season forecast is elevating Gulf Coast infrastructure risk as season opens June 1.</p>
+  </div>
+
+  <div class="dnote">⚠ Prices marked (est.) are analyst estimates from published forward curves &amp; seasonal fundamentals — not live exchange data. Verify at ERCOT.com · PJM.com · CAISO.com · EIA.gov · CME Group before trading.</div>
+
+  <div class="two-col">
+    <!-- ① ELECTRICITY -->
+    <div class="sec">
+      <div class="sec-hd"><div class="sec-num">01</div><div class="sec-ico">⚡</div><div class="sec-ttl">ELECTRICITY MARKETS</div></div>
+      <div class="sec-body">
+        <table class="ptbl">
+          <thead><tr><th>Hub</th><th>DA (est.)</th><th>RT (est.)</th><th>Δ</th></tr></thead>
+          <tbody>
+            <tr><td class="hub">ERCOT North</td><td class="val">$38–48</td><td class="val">~$42</td><td class="neu">flat</td></tr>
+            <tr><td class="hub">ERCOT Houston</td><td class="val">$39–52</td><td class="val">~$44</td><td class="up">+3%</td></tr>
+            <tr><td class="hub">PJM West</td><td class="val">$40–55</td><td class="val">~$46</td><td class="dn">−2%</td></tr>
+            <tr><td class="hub">CAISO NP15</td><td class="val">$42–62</td><td class="val">~$50</td><td class="up">+5%</td></tr>
+            <tr><td class="hub">MISO Indiana</td><td class="val">$35–45</td><td class="val">~$38</td><td class="neu">flat</td></tr>
+            <tr><td class="hub">SPP South</td><td class="val">$33–44</td><td class="val">~$36</td><td class="dn">−4%</td></tr>
+            <tr><td class="hub">NYISO Zone J</td><td class="val">$52–70</td><td class="val">~$58</td><td class="up">+2%</td></tr>
+            <tr><td class="hub">ISO-NE Mass Hub</td><td class="val">$40–58</td><td class="val">~$47</td><td class="neu">flat</td></tr>
+          </tbody>
+        </table>
+        <div class="div"></div>
+        <div class="item"><span class="fl fl-y">🟡 WATCH</span> <strong>ERCOT Reserve Margin ~10.8%</strong> — below the 13.75% reference level. Heat-driven peak demand approaching 70–75 GW post-holiday could trigger conservation watch. Renewable intermittency + aging thermal retirements the key risk. <span class="item-src">ERCOT SARA, May 2026</span></div>
+        <div class="item"><span class="fl fl-y">🟡 WATCH</span> <strong>NYISO Zone J congestion</strong> — NYC $10–18/MWh premium to rest-of-state persists. Ramapo–Pleasant Valley line maintenance reduces PJM-NYISO transfer capability through June 5. <span class="item-src">NYISO Transmission Notices, May 2026</span></div>
+        <div class="item"><span class="fl fl-g">🟢 ROUTINE</span> <strong>Holiday load trough</strong> — PJM, MISO, SPP industrial load −8–12% vs. normal Friday. No reliability concerns across any ISO. <span class="item-src">ISO Operator Load Forecasts, May 29, 2026</span></div>
+      </div>
+    </div>
+
+    <!-- ② NATURAL GAS -->
+    <div class="sec">
+      <div class="sec-hd"><div class="sec-num">02</div><div class="sec-ico">🔥</div><div class="sec-ttl">NATURAL GAS MARKETS</div></div>
+      <div class="sec-body">
+        <table class="ptbl">
+          <thead><tr><th>Location</th><th>Price (est.)</th><th>Δ Day</th></tr></thead>
+          <tbody>
+            <tr><td class="hub">Henry Hub Jul'26</td><td class="val">~$3.05/MMBtu</td><td class="dn">−$0.04</td></tr>
+            <tr><td class="hub">Waha (Permian)</td><td class="val">~$1.20/MMBtu</td><td class="dn">−$0.08</td></tr>
+            <tr><td class="hub">Dom South (App.)</td><td class="val">~$2.75/MMBtu</td><td class="dn">−$0.03</td></tr>
+            <tr><td class="hub">SoCal Border</td><td class="val">~$3.35/MMBtu</td><td class="up">+$0.05</td></tr>
+            <tr><td class="hub">Chicago Citygate</td><td class="val">~$2.95/MMBtu</td><td class="neu">flat</td></tr>
+          </tbody>
+        </table>
+        <div class="div"></div>
+        <div class="item"><span class="fl fl-r">🔴 HIGH IMPACT</span> <strong>EIA Storage +95 Bcf</strong> (week ending May 22) — beats est. +78 Bcf; 5YR avg +80 Bcf. Total stocks ~2,420 Bcf, <strong>+19% above 5YR avg</strong>, +290 Bcf vs. year-ago. Raymond James &amp; BofA cut Q3 HH targets −$0.10–0.15 post-report. <span class="item-src">EIA Weekly Storage Report, May 28, 2026</span></div>
+        <div class="item"><span class="fl fl-r">🔴 HIGH IMPACT</span> <strong>Waha basis −$1.85/MMBtu</strong> vs. HH — widest since Aug '24. Permian production growth outpacing Matterhorn Express egress; negative cash prices possible on high-output shoulder days. <span class="item-src">Platts NGI; EIA Permian Report, May 2026</span></div>
+        <div class="item"><span class="fl fl-y">🟡 WATCH</span> <strong>LNG feedgas ~14.2 Bcf/d</strong> — near record for early summer. Plaquemines LNG Phase 1 ramping; TTF–HH arb (~$8/MMBtu) drives max utilization, providing structural HH floor. <span class="item-src">Wood Mackenzie LNG Tracker, May 2026</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top:10px">
+    <!-- ③ RENEWABLES -->
+    <div class="sec">
+      <div class="sec-hd"><div class="sec-num">03</div><div class="sec-ico">🌱</div><div class="sec-ttl">RENEWABLE ENERGY MARKETS</div></div>
+      <div class="sec-body">
+        <div class="item"><span class="fl fl-g">🟢 ROUTINE</span> <strong>ERCOT solar ~22 GW peak</strong> (May record; 35 GW installed). Duck curve driving sub-$20/MWh midday, $55–80/MWh at 6–8 PM peak. Battery dispatch absorbing ~3 GW surplus. <span class="item-src">ERCOT Real-Time Data; Wood Mackenzie Solar, May 2026</span></div>
+        <div class="item"><span class="fl fl-g">🟢 ROUTINE</span> <strong>SPP wind ~22–26 GW</strong> — 50%+ penetration hit Thursday, new ISO record. Curtailments &lt;3% aided by improved MISO seam export capability from Q1 2026 upgrade. <span class="item-src">SPP Market Monitor; AWEA Dashboard, May 2026</span></div>
+        <div class="item"><span class="fl fl-y">🟡 WATCH</span> <strong>CAISO battery dispatch 7–9 GW</strong> at evening ramp (12 GW installed). Solar curtailments −15% YTD vs. 2025. FERC Order 2023-A: PJM first cluster results show 180 GW advancing (solar + storage dominant). <span class="item-src">CAISO Ops; CPUC Storage Dashboard; FERC, May 2026</span></div>
+        <div class="item"><span class="fl fl-y">🟡 WATCH</span> <strong>SREC-II (NJ) $195–210/MWh</strong> (soft vs. $225–240 late 2025). TX TRECs ~$0.50–1.00 (oversupplied). IL Class I RECs ~$8.50. IRA ITC adder guidance flowing through project economics. <span class="item-src">LevelTen Energy; Marex REC Tracker, May 2026</span></div>
+      </div>
+    </div>
+
+    <!-- ⑤ WEATHER -->
+    <div class="sec">
+      <div class="sec-hd"><div class="sec-num">05</div><div class="sec-ico">🌡</div><div class="sec-ttl">WEATHER &amp; DEMAND OUTLOOK</div></div>
+      <div class="sec-body">
+        <div class="item"><span class="fl fl-y">🟡 WATCH</span> <strong>Texas heat ridge Jun 3–5</strong> — Dallas highs 96–100°F, +8–10°F above seasonal normal. ERCOT load ramps from trough ~55–60 GW toward 70–75 GW. Dallas CDD ~35 vs. 30YR normal ~20. 4CP tracking window opens. <span class="item-src">NOAA CPC 7-Day Outlook, May 29, 2026; DTN Energy Weather</span></div>
+        <div class="item"><span class="fl fl-g">🟢 ROUTINE</span> <strong>Northeast below-normal through June 5</strong> — NYC/Boston highs mid–upper 60s°F. Bearish for NYISO/ISO-NE demand and gas burn. HDD near zero; CDD minimal. <span class="item-src">NOAA WPC, May 29, 2026</span></div>
+        <div class="item"><span class="fl fl-g">🟢 ROUTINE</span> <strong>California marine layer</strong> — SF highs mid-60s; inland Sacramento 85–92°F. Moderate CAISO peak demand, no grid stress. <span class="item-src">NWS LA/Sacramento, May 29, 2026</span></div>
+        <div class="item"><span class="fl fl-y">🟡 WATCH</span> <strong>2026 Atlantic hurricane season opens June 1</strong> — NOAA: 17–23 named storms, 4–7 major hurricanes. Gulf Coast exposure: ~1.8 MMbbl/d crude, 3.5 Bcf/d gas, multiple LNG terminals. Storm contingency protocols activating now. <span class="item-src">NOAA 2026 Hurricane Season Outlook, May 22, 2026</span></div>
+      </div>
+    </div>
+  </div>
+  </div><!-- /page-inner -->
+
+  <div class="foot-strip">
+    <span>GIG ENERGY CORPORATION · ENERGYPULSE · CONDENSED EDITION · MAY 29, 2026</span>
+    <span>PAGE 1 OF 4</span>
+    <span>PRICES INDICATIVE — NOT FINANCIAL ADVICE</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ PAGE 2 ═══ -->
+<div class="page">
+  <div class="page-hd">
+    <div class="page-hd-left">
+      <!-- Compact logo repeat -->
+      <div class="gig-logo-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="gig-svg-logo" aria-label="Gig Energy Corporation — Energy Managed." viewBox="0 0 239.789 56.8559">
+<defs>
+<clipPath id="clip-0">
+<path clip-rule="nonzero" d="M 25 0 L 131 0 L 131 56.855469 L 25 56.855469 Z M 25 0 "/>
+</clipPath>
+<clipPath id="clip-1">
+<path clip-rule="nonzero" d="M 20 0 L 136 0 L 136 56.855469 L 20 56.855469 Z M 20 0 "/>
+</clipPath>
+<clipPath id="clip-2">
+<path clip-rule="nonzero" d="M 0 0 L 52 0 L 52 56.855469 L 0 56.855469 Z M 0 0 "/>
+</clipPath>
+<clipPath id="clip-3">
+<path clip-rule="nonzero" d="M 0 0 L 61 0 L 61 56.855469 L 0 56.855469 Z M 0 0 "/>
+</clipPath>
+<clipPath id="clip-4">
+<path clip-rule="nonzero" d="M 8 0 L 85 0 L 85 56.855469 L 8 56.855469 Z M 8 0 "/>
+</clipPath>
+</defs>
+<path fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="miter" stroke="rgb(74.510193%, 11.764526%, 17.64679%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.0002625 0.00135 L 0.0002625 -16.443962 " transform="matrix(1, 0, 0, -1, 77.9763, 4.4701)"/>
+<g clip-path="url(#clip-0)">
+<path fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="miter" stroke="rgb(55.2948%, 78.823853%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.0005125 0.00113125 C 3.094262 -1.67465 5.203637 -4.98715 5.203637 -8.79965 C 5.203637 -14.29965 0.816919 -18.760588 -4.593238 -18.760588 C -10.003394 -18.760588 -14.390113 -14.29965 -14.390113 -8.79965 C -14.390113 -4.948088 -12.241675 -1.608244 -9.097144 0.0480062 " transform="matrix(1, 0, 0, -1, 82.5698, 13.3566)"/>
+</g>
+<g clip-path="url(#clip-1)">
+<path fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="miter" stroke="rgb(14.901733%, 13.33313%, 52.549744%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.00185 -0.00024375 C 5.755756 -2.043213 9.888569 -7.613525 9.888569 -14.164306 C 9.888569 -22.449463 3.2831 -29.164306 -4.865338 -29.164306 C -13.013775 -29.164306 -19.619244 -22.449463 -19.619244 -14.164306 C -19.619244 -7.422119 -15.244244 -1.718994 -9.224713 0.171631 " transform="matrix(1, 0, 0, -1, 82.8419, 8.2146)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 23.019531 19.660156 C 23.429688 19.660156 23.699219 19.898438 23.699219 20.339844 L 23.699219 31.199219 C 23.699219 31.8125 23.324219 32.152344 23.019531 32.359375 C 21.386719 33.34375 18.96875 34.027344 15.496094 34.027344 C 8.039062 34.027344 3.953125 30.113281 3.953125 21.703125 C 3.953125 13.328125 8.074219 9.378906 15.734375 9.378906 C 18.59375 9.378906 21.042969 10.128906 22.40625 10.910156 C 22.816406 11.113281 23.019531 11.351562 22.847656 11.726562 L 22.167969 13.496094 C 21.996094 13.871094 21.726562 14.078125 21.214844 13.839844 C 20.058594 13.328125 18.285156 12.75 16.109375 12.75 C 10.285156 12.75 7.765625 15.507812 7.765625 21.703125 C 7.765625 27.964844 10.355469 30.691406 15.835938 30.691406 C 17.539062 30.691406 19.273438 30.28125 20.195312 29.804688 L 20.195312 22.757812 L 15.800781 22.757812 C 15.324219 22.757812 15.085938 22.554688 15.085938 22.109375 L 15.085938 20.339844 C 15.085938 19.898438 15.324219 19.660156 15.800781 19.660156 Z M 23.019531 19.660156 "/>
+<g clip-path="url(#clip-2)">
+<path fill="none" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(100%,100%,100%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.00053125 -0.00045625 C 0.410687 -0.00045625 0.680219 -0.238738 0.680219 -0.680144 L 0.680219 -11.539519 C 0.680219 -12.1528 0.305219 -12.492644 0.00053125 -12.699675 C -1.632281 -13.68405 -4.05025 -14.367644 -7.522906 -14.367644 C -14.979938 -14.367644 -19.065875 -10.453581 -19.065875 -2.043425 C -19.065875 6.331575 -14.944781 10.280794 -7.284625 10.280794 C -4.42525 10.280794 -1.976031 9.530794 -0.61275 8.749544 C -0.202594 8.546419 0.00053125 8.308137 -0.171344 7.933137 L -0.851031 6.163606 C -1.022906 5.788606 -1.292438 5.581575 -1.804156 5.819856 C -2.960406 6.331575 -4.733844 6.9097 -6.909625 6.9097 C -12.733844 6.9097 -15.253375 4.151887 -15.253375 -2.043425 C -15.253375 -8.305144 -12.663531 -11.031706 -7.183063 -11.031706 C -5.479938 -11.031706 -3.745563 -10.62155 -2.823688 -10.144988 L -2.823688 -3.098113 L -7.218219 -3.098113 C -7.694781 -3.098113 -7.933063 -2.894988 -7.933063 -2.449675 L -7.933063 -0.680144 C -7.933063 -0.238738 -7.694781 -0.00045625 -7.218219 -0.00045625 Z M 0.00053125 -0.00045625 " transform="matrix(1, 0, 0, -1, 23.019, 19.6597)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 28.636719 10.433594 C 28.636719 9.957031 28.84375 9.753906 29.285156 9.753906 L 31.667969 9.753906 C 32.144531 9.753906 32.382812 9.957031 32.382812 10.433594 L 32.382812 33.003906 C 32.382812 33.480469 32.144531 33.6875 31.667969 33.6875 L 29.285156 33.6875 C 28.84375 33.6875 28.636719 33.480469 28.636719 33.003906 Z M 28.636719 10.433594 "/>
+<g clip-path="url(#clip-3)">
+<path fill="none" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(100%,100%,100%)" stroke-opacity="1" stroke-miterlimit="10" d="M -0.00128125 0.00040625 C -0.00128125 0.476969 0.20575 0.680094 0.647156 0.680094 L 3.029969 0.680094 C 3.506531 0.680094 3.744812 0.476969 3.744812 0.00040625 L 3.744812 -22.569906 C 3.744812 -23.046469 3.506531 -23.2535 3.029969 -23.2535 L 0.647156 -23.2535 C 0.20575 -23.2535 -0.00128125 -23.046469 -0.00128125 -22.569906 Z M -0.00128125 0.00040625 " transform="matrix(1, 0, 0, -1, 28.638, 10.434)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 55.769531 19.660156 C 56.179688 19.660156 56.453125 19.898438 56.453125 20.339844 L 56.453125 31.199219 C 56.453125 31.8125 56.078125 32.152344 55.769531 32.359375 C 54.136719 33.34375 51.71875 34.027344 48.246094 34.027344 C 40.792969 34.027344 36.707031 30.113281 36.707031 21.703125 C 36.707031 13.328125 40.824219 9.378906 48.484375 9.378906 C 51.34375 9.378906 53.796875 10.128906 55.15625 10.910156 C 55.566406 11.113281 55.769531 11.351562 55.601562 11.726562 L 54.917969 13.496094 C 54.75 13.871094 54.476562 14.078125 53.96875 13.839844 C 52.808594 13.328125 51.039062 12.75 48.859375 12.75 C 43.039062 12.75 40.519531 15.507812 40.519531 21.703125 C 40.519531 27.964844 43.105469 30.691406 48.585938 30.691406 C 50.289062 30.691406 52.027344 30.28125 52.945312 29.804688 L 52.945312 22.757812 L 48.554688 22.757812 C 48.078125 22.757812 47.839844 22.554688 47.839844 22.109375 L 47.839844 20.339844 C 47.839844 19.898438 48.078125 19.660156 48.554688 19.660156 Z M 55.769531 19.660156 "/>
+<g clip-path="url(#clip-4)">
+<path fill="none" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(100%,100%,100%)" stroke-opacity="1" stroke-miterlimit="10" d="M -0.00126875 -0.00045625 C 0.408887 -0.00045625 0.682325 -0.238738 0.682325 -0.680144 L 0.682325 -11.539519 C 0.682325 -12.1528 0.307325 -12.492644 -0.00126875 -12.699675 C -1.634081 -13.68405 -4.05205 -14.367644 -7.524706 -14.367644 C -14.977831 -14.367644 -19.063769 -10.453581 -19.063769 -2.043425 C -19.063769 6.331575 -14.946581 10.280794 -7.286425 10.280794 C -4.42705 10.280794 -1.973925 9.530794 -0.61455 8.749544 C -0.204394 8.546419 -0.00126875 8.308137 -0.169238 7.933137 L -0.852831 6.163606 C -1.0208 5.788606 -1.294238 5.581575 -1.80205 5.819856 C -2.962206 6.331575 -4.731738 6.9097 -6.911425 6.9097 C -12.731738 6.9097 -15.251269 4.151887 -15.251269 -2.043425 C -15.251269 -8.305144 -12.665331 -11.031706 -7.184863 -11.031706 C -5.481738 -11.031706 -3.743456 -10.62155 -2.825488 -10.144988 L -2.825488 -3.098113 L -7.216113 -3.098113 C -7.692675 -3.098113 -7.930956 -2.894988 -7.930956 -2.449675 L -7.930956 -0.680144 C -7.930956 -0.238738 -7.692675 -0.00045625 -7.216113 -0.00045625 Z M -0.00126875 -0.00045625 " transform="matrix(1, 0, 0, -1, 55.7708, 19.6597)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 102.046875 20.457031 L 115.996094 20.457031 L 115.996094 20.234375 C 115.996094 15.84375 113.824219 12.714844 109.25 12.714844 C 104.902344 12.714844 102.320312 15.253906 102.046875 20.457031 M 116.539062 29.5625 C 117.039062 29.289062 117.355469 29.5625 117.535156 29.972656 L 118.214844 31.644531 C 118.304688 32.050781 118.078125 32.28125 117.71875 32.460938 C 115.859375 33.410156 113.28125 34.132812 110.425781 34.132812 C 102.953125 34.132812 98.425781 29.425781 98.425781 21.90625 C 98.425781 13.984375 102.636719 9.59375 109.25 9.59375 C 115.953125 9.59375 119.527344 14.164062 119.527344 20.507812 L 119.527344 22.769531 C 119.527344 23.3125 119.304688 23.492188 118.757812 23.492188 L 102.046875 23.492188 C 102.367188 27.933594 105.625 31.011719 110.609375 31.011719 C 113.234375 31.011719 114.820312 30.46875 116.539062 29.5625 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 144.808594 32.871094 C 144.808594 33.367188 144.582031 33.59375 144.085938 33.59375 L 141.867188 33.59375 C 141.367188 33.59375 141.144531 33.367188 141.144531 32.871094 L 141.144531 18.605469 C 141.144531 15.070312 139.554688 12.988281 135.390625 12.988281 C 131.042969 12.988281 128.371094 15.660156 128.371094 19.691406 L 128.371094 32.871094 C 128.371094 33.367188 128.144531 33.59375 127.648438 33.59375 L 125.425781 33.59375 C 124.929688 33.59375 124.75 33.367188 124.75 32.871094 L 124.75 10.859375 C 124.75 10.363281 124.929688 10.132812 125.425781 10.132812 L 127.601562 10.132812 C 128.101562 10.132812 128.324219 10.363281 128.324219 10.816406 L 128.371094 13.757812 C 129.367188 11.855469 131.496094 9.59375 136.386719 9.59375 C 142.046875 9.59375 144.808594 12.945312 144.808594 18.105469 Z M 144.808594 32.871094 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 153.472656 20.457031 L 167.421875 20.457031 L 167.421875 20.234375 C 167.421875 15.84375 165.246094 12.714844 160.675781 12.714844 C 156.328125 12.714844 153.746094 15.253906 153.472656 20.457031 M 167.964844 29.5625 C 168.460938 29.289062 168.777344 29.5625 168.960938 29.972656 L 169.640625 31.644531 C 169.730469 32.050781 169.503906 32.28125 169.140625 32.460938 C 167.285156 33.410156 164.703125 34.132812 161.851562 34.132812 C 154.378906 34.132812 149.851562 29.425781 149.851562 21.90625 C 149.851562 13.984375 154.0625 9.59375 160.675781 9.59375 C 167.375 9.59375 170.953125 14.164062 170.953125 20.507812 L 170.953125 22.769531 C 170.953125 23.3125 170.726562 23.492188 170.183594 23.492188 L 153.472656 23.492188 C 153.789062 27.933594 157.050781 31.011719 162.03125 31.011719 C 164.65625 31.011719 166.242188 30.46875 167.964844 29.5625 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 179.164062 10.132812 C 179.660156 10.132812 179.890625 10.363281 179.890625 10.816406 L 179.890625 15.253906 C 180.660156 13.214844 183.195312 10.046875 187.539062 10.046875 C 187.859375 10.046875 188.085938 10.132812 188.085938 10.589844 L 188.085938 13.441406 C 188.085938 13.894531 187.90625 14.027344 187.496094 14.027344 C 187.222656 14.027344 186.996094 13.9375 186.410156 13.9375 C 182.648438 13.9375 179.890625 18.242188 179.890625 22.453125 L 179.890625 32.871094 C 179.890625 33.367188 179.660156 33.59375 179.164062 33.59375 L 176.945312 33.59375 C 176.445312 33.59375 176.21875 33.367188 176.21875 32.871094 L 176.21875 10.859375 C 176.21875 10.363281 176.445312 10.132812 176.945312 10.132812 Z M 179.164062 10.132812 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 200.773438 12.714844 C 196.652344 12.714844 193.980469 14.847656 193.980469 20.644531 C 193.980469 26.4375 196.652344 28.519531 200.773438 28.519531 C 204.984375 28.519531 207.65625 25.714844 207.65625 20.328125 C 207.65625 15.027344 204.984375 12.714844 200.773438 12.714844 M 211.277344 30.242188 C 211.277344 35.949219 207.109375 39.117188 200.773438 39.117188 C 197.875 39.117188 195.019531 38.753906 192.847656 37.757812 C 192.53125 37.621094 192.257812 37.398438 192.394531 37.03125 L 193.074219 35.179688 C 193.210938 34.769531 193.390625 34.542969 193.933594 34.722656 C 196.019531 35.539062 198.28125 35.902344 200.683594 35.902344 C 204.941406 35.902344 207.699219 33.773438 207.699219 30.015625 L 207.699219 27.433594 C 206.480469 30.152344 203.445312 31.554688 200.140625 31.554688 C 194.570312 31.554688 190.265625 28.292969 190.265625 20.644531 C 190.265625 12.988281 194.386719 9.59375 200.003906 9.59375 C 203.355469 9.59375 206.523438 11.175781 207.699219 13.578125 L 207.699219 10.816406 C 207.746094 10.363281 207.929688 10.132812 208.425781 10.132812 L 210.601562 10.132812 C 211.097656 10.132812 211.277344 10.363281 211.277344 10.859375 Z M 211.277344 30.242188 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 228.457031 32.097656 C 227.007812 36.851562 225.332031 38.753906 220.890625 38.753906 C 219.625 38.753906 218.265625 38.53125 217.585938 38.257812 C 217.222656 38.121094 216.953125 37.941406 217.042969 37.578125 L 217.585938 35.71875 C 217.722656 35.3125 217.859375 35.179688 218.355469 35.222656 C 218.808594 35.3125 219.398438 35.539062 220.667969 35.539062 C 222.792969 35.539062 223.882812 34.542969 223.882812 33.050781 C 223.882812 32.597656 223.792969 32.097656 223.5625 31.554688 L 215.503906 10.90625 C 215.324219 10.453125 215.503906 10.132812 216 10.132812 L 218.402344 10.132812 C 218.851562 10.132812 219.035156 10.40625 219.171875 10.816406 L 223.699219 22.722656 L 226.054688 29.742188 L 226.144531 29.742188 L 228.273438 22.722656 L 232.078125 10.816406 C 232.210938 10.40625 232.394531 10.132812 232.847656 10.132812 L 235.246094 10.132812 C 235.746094 10.132812 235.925781 10.453125 235.792969 10.90625 Z M 228.457031 32.097656 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 141.851562 47.09375 L 141.253906 50.476562 L 145.230469 50.476562 C 145.332031 50.476562 145.386719 50.511719 145.367188 50.625 L 145.296875 51.019531 C 145.277344 51.132812 145.207031 51.179688 145.109375 51.179688 L 140.523438 51.179688 C 140.414062 51.179688 140.371094 51.132812 140.390625 51.019531 L 141.863281 42.671875 C 141.878906 42.570312 141.9375 42.523438 142.039062 42.523438 L 146.597656 42.523438 C 146.710938 42.523438 146.75 42.570312 146.734375 42.671875 L 146.664062 43.066406 C 146.644531 43.175781 146.585938 43.226562 146.472656 43.226562 L 142.53125 43.226562 L 141.972656 46.398438 L 145.789062 46.398438 C 145.890625 46.398438 145.929688 46.460938 145.910156 46.558594 L 145.84375 46.929688 C 145.828125 47.027344 145.769531 47.09375 145.667969 47.09375 Z M 141.851562 47.09375 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 152.191406 51.03125 C 152.175781 51.132812 152.128906 51.179688 152.019531 51.179688 L 151.597656 51.179688 C 151.5 51.179688 151.457031 51.132812 151.472656 51.03125 L 152.179688 47.042969 C 152.359375 46.003906 151.992188 45.375 150.777344 45.375 C 149.519531 45.375 148.535156 46.175781 148.335938 47.328125 L 147.679688 51.03125 C 147.664062 51.132812 147.605469 51.179688 147.507812 51.179688 L 147.074219 51.179688 C 146.976562 51.179688 146.945312 51.132812 146.964844 51.03125 L 148.027344 45.003906 C 148.046875 44.894531 148.09375 44.84375 148.191406 44.84375 L 148.609375 44.84375 C 148.710938 44.84375 148.75 44.894531 148.734375 44.992188 L 148.574219 45.957031 C 148.933594 45.398438 149.675781 44.695312 151.058594 44.695312 C 152.582031 44.695312 153.152344 45.585938 152.910156 46.957031 Z M 152.191406 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 155.121094 47.734375 L 159.25 47.734375 L 159.269531 47.636719 C 159.503906 46.289062 159.042969 45.324219 157.671875 45.324219 C 156.335938 45.324219 155.460938 46.152344 155.121094 47.734375 M 158.800781 50.289062 C 158.921875 50.230469 158.972656 50.289062 158.996094 50.378906 L 159.0625 50.699219 C 159.070312 50.785156 159.023438 50.835938 158.933594 50.871094 C 158.390625 51.132812 157.664062 51.328125 156.886719 51.328125 C 154.910156 51.328125 153.992188 50.066406 154.355469 48.019531 C 154.726562 45.90625 156.003906 44.695312 157.785156 44.695312 C 159.5625 44.695312 160.269531 45.957031 159.964844 47.683594 L 159.875 48.191406 C 159.855469 48.300781 159.796875 48.339844 159.6875 48.339844 L 155.015625 48.339844 C 154.824219 49.773438 155.539062 50.699219 157.035156 50.699219 C 157.761719 50.699219 158.285156 50.550781 158.800781 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 162.714844 44.84375 C 162.8125 44.84375 162.851562 44.894531 162.835938 44.992188 L 162.597656 46.351562 C 162.910156 45.757812 163.792969 44.820312 165.015625 44.820312 C 165.089844 44.820312 165.136719 44.832031 165.121094 44.929688 L 165.027344 45.460938 C 165.007812 45.558594 164.953125 45.597656 164.867188 45.597656 C 164.816406 45.597656 164.757812 45.574219 164.636719 45.574219 C 163.597656 45.574219 162.523438 46.769531 162.3125 47.957031 L 161.769531 51.03125 C 161.753906 51.132812 161.695312 51.179688 161.597656 51.179688 L 161.175781 51.179688 C 161.0625 51.179688 161.023438 51.132812 161.039062 51.03125 L 162.105469 45.003906 C 162.121094 44.894531 162.179688 44.84375 162.292969 44.84375 Z M 162.714844 44.84375 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 168.574219 45.324219 C 167.324219 45.324219 166.441406 46.054688 166.15625 47.683594 C 165.867188 49.316406 166.496094 50.03125 167.742188 50.03125 C 169.003906 50.03125 169.9375 49.15625 170.210938 47.597656 C 170.480469 46.066406 169.832031 45.324219 168.574219 45.324219 M 170.453125 50.289062 C 170.175781 51.871094 168.96875 52.6875 167.3125 52.6875 C 166.558594 52.6875 165.800781 52.5625 165.269531 52.292969 C 165.214844 52.253906 165.167969 52.21875 165.207031 52.144531 L 165.40625 51.785156 C 165.449219 51.699219 165.492188 51.648438 165.597656 51.6875 C 166.132812 51.933594 166.757812 52.046875 167.414062 52.046875 C 168.660156 52.046875 169.535156 51.441406 169.746094 50.242188 L 169.902344 49.363281 C 169.421875 50.179688 168.511719 50.648438 167.523438 50.648438 C 165.992188 50.648438 165.074219 49.6875 165.425781 47.683594 C 165.777344 45.683594 167.003906 44.695312 168.546875 44.695312 C 169.539062 44.695312 170.316406 45.175781 170.507812 45.929688 L 170.671875 44.992188 C 170.6875 44.894531 170.746094 44.84375 170.855469 44.84375 L 171.265625 44.84375 C 171.378906 44.84375 171.40625 44.894531 171.386719 45.003906 Z M 170.453125 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 174.960938 50.933594 C 174.371094 52.105469 173.828125 52.589844 172.792969 52.589844 C 172.457031 52.589844 172.160156 52.527344 171.984375 52.464844 C 171.914062 52.441406 171.863281 52.390625 171.898438 52.316406 L 172.0625 51.957031 C 172.101562 51.871094 172.148438 51.835938 172.253906 51.859375 C 172.382812 51.882812 172.558594 51.945312 172.867188 51.945312 C 173.683594 51.945312 174.132812 51.292969 174.027344 50.773438 L 172.792969 45.015625 C 172.773438 44.917969 172.808594 44.84375 172.921875 44.84375 L 173.378906 44.84375 C 173.476562 44.84375 173.503906 44.90625 173.527344 44.992188 L 174.226562 48.375 L 174.585938 50.402344 L 174.609375 50.402344 L 175.609375 48.375 L 177.34375 44.992188 C 177.382812 44.90625 177.433594 44.84375 177.53125 44.84375 L 177.988281 44.84375 C 178.101562 44.84375 178.125 44.917969 178.070312 45.015625 Z M 174.960938 50.933594 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 186.253906 48.5 L 184.292969 43.855469 L 183.03125 51.019531 C 183.011719 51.132812 182.953125 51.179688 182.839844 51.179688 L 182.398438 51.179688 C 182.285156 51.179688 182.242188 51.132812 182.265625 51.019531 L 183.734375 42.671875 C 183.753906 42.570312 183.8125 42.523438 183.921875 42.523438 L 184.40625 42.523438 C 184.503906 42.523438 184.5625 42.546875 184.585938 42.621094 L 186.652344 47.449219 L 190.417969 42.621094 C 190.46875 42.546875 190.535156 42.523438 190.632812 42.523438 L 191.117188 42.523438 C 191.226562 42.523438 191.253906 42.570312 191.238281 42.671875 L 189.765625 51.019531 C 189.746094 51.132812 189.699219 51.179688 189.589844 51.179688 L 189.132812 51.179688 C 189.03125 51.179688 188.992188 51.132812 189.011719 51.019531 L 190.273438 43.855469 L 186.675781 48.5 C 186.613281 48.574219 186.53125 48.609375 186.445312 48.609375 C 186.359375 48.609375 186.292969 48.574219 186.253906 48.5 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 196.539062 48.019531 C 194.398438 48.09375 192.664062 48.179688 192.433594 49.488281 C 192.3125 50.167969 192.71875 50.6875 193.753906 50.6875 C 195.289062 50.6875 196.222656 49.796875 196.410156 48.734375 Z M 196.710938 51.03125 C 196.691406 51.132812 196.636719 51.179688 196.535156 51.179688 L 196.140625 51.179688 C 196.042969 51.179688 196.011719 51.132812 196.03125 51.03125 L 196.210938 50.007812 C 195.890625 50.488281 195.15625 51.292969 193.539062 51.292969 C 192.152344 51.292969 191.539062 50.574219 191.726562 49.511719 C 192.035156 47.746094 193.996094 47.5 196.640625 47.4375 L 196.722656 46.957031 C 196.917969 45.855469 196.539062 45.351562 195.265625 45.351562 C 194.472656 45.351562 193.761719 45.535156 193.164062 45.769531 C 193.070312 45.808594 193.003906 45.769531 192.996094 45.683594 L 192.945312 45.324219 C 192.9375 45.238281 192.980469 45.191406 193.0625 45.152344 C 193.703125 44.894531 194.601562 44.695312 195.429688 44.695312 C 197.136719 44.695312 197.691406 45.460938 197.433594 46.933594 Z M 196.710938 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 203.902344 51.03125 C 203.886719 51.132812 203.839844 51.179688 203.730469 51.179688 L 203.308594 51.179688 C 203.210938 51.179688 203.167969 51.132812 203.1875 51.03125 L 203.890625 47.042969 C 204.074219 46.003906 203.703125 45.375 202.492188 45.375 C 201.230469 45.375 200.25 46.175781 200.046875 47.328125 L 199.390625 51.03125 C 199.375 51.132812 199.316406 51.179688 199.21875 51.179688 L 198.785156 51.179688 C 198.6875 51.179688 198.65625 51.132812 198.675781 51.03125 L 199.738281 45.003906 C 199.757812 44.894531 199.804688 44.84375 199.902344 44.84375 L 200.320312 44.84375 C 200.421875 44.84375 200.460938 44.894531 200.445312 44.992188 L 200.289062 45.957031 C 200.644531 45.398438 201.386719 44.695312 202.773438 44.695312 C 204.292969 44.695312 204.863281 45.585938 204.621094 46.957031 Z M 203.902344 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 210.480469 48.019531 C 208.339844 48.09375 206.605469 48.179688 206.375 49.488281 C 206.253906 50.167969 206.660156 50.6875 207.695312 50.6875 C 209.230469 50.6875 210.164062 49.796875 210.351562 48.734375 Z M 210.652344 51.03125 C 210.632812 51.132812 210.578125 51.179688 210.476562 51.179688 L 210.082031 51.179688 C 209.984375 51.179688 209.953125 51.132812 209.972656 51.03125 L 210.152344 50.007812 C 209.832031 50.488281 209.097656 51.292969 207.480469 51.292969 C 206.09375 51.292969 205.480469 50.574219 205.667969 49.511719 C 205.976562 47.746094 207.9375 47.5 210.582031 47.4375 L 210.664062 46.957031 C 210.859375 45.855469 210.480469 45.351562 209.207031 45.351562 C 208.414062 45.351562 207.703125 45.535156 207.105469 45.769531 C 207.011719 45.808594 206.945312 45.769531 206.9375 45.683594 L 206.886719 45.324219 C 206.878906 45.238281 206.921875 45.191406 207.003906 45.152344 C 207.644531 44.894531 208.542969 44.695312 209.371094 44.695312 C 211.078125 44.695312 211.632812 45.460938 211.375 46.933594 Z M 210.652344 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 216.007812 45.324219 C 214.761719 45.324219 213.875 46.054688 213.589844 47.683594 C 213.300781 49.316406 213.929688 50.03125 215.179688 50.03125 C 216.4375 50.03125 217.371094 49.15625 217.648438 47.597656 C 217.917969 46.066406 217.269531 45.324219 216.007812 45.324219 M 217.890625 50.289062 C 217.609375 51.871094 216.402344 52.6875 214.746094 52.6875 C 213.992188 52.6875 213.238281 52.5625 212.703125 52.292969 C 212.648438 52.253906 212.605469 52.21875 212.644531 52.144531 L 212.84375 51.785156 C 212.882812 51.699219 212.929688 51.648438 213.03125 51.6875 C 213.570312 51.933594 214.195312 52.046875 214.847656 52.046875 C 216.097656 52.046875 216.96875 51.441406 217.179688 50.242188 L 217.335938 49.363281 C 216.859375 50.179688 215.945312 50.648438 214.957031 50.648438 C 213.425781 50.648438 212.507812 49.6875 212.859375 47.683594 C 213.214844 45.683594 214.4375 44.695312 215.984375 44.695312 C 216.972656 44.695312 217.75 45.175781 217.941406 45.929688 L 218.105469 44.992188 C 218.125 44.894531 218.183594 44.84375 218.292969 44.84375 L 218.699219 44.84375 C 218.8125 44.84375 218.839844 44.894531 218.820312 45.003906 Z M 217.890625 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 220.75 47.734375 L 224.878906 47.734375 L 224.894531 47.636719 C 225.132812 46.289062 224.671875 45.324219 223.300781 45.324219 C 221.964844 45.324219 221.089844 46.152344 220.75 47.734375 M 224.425781 50.289062 C 224.550781 50.230469 224.601562 50.289062 224.621094 50.378906 L 224.6875 50.699219 C 224.699219 50.785156 224.652344 50.835938 224.558594 50.871094 C 224.019531 51.132812 223.292969 51.328125 222.515625 51.328125 C 220.535156 51.328125 219.621094 50.066406 219.980469 48.019531 C 220.355469 45.90625 221.632812 44.695312 223.410156 44.695312 C 225.191406 44.695312 225.894531 45.957031 225.589844 47.683594 L 225.5 48.191406 C 225.480469 48.300781 225.425781 48.339844 225.316406 48.339844 L 220.644531 48.339844 C 220.453125 49.773438 221.164062 50.699219 222.660156 50.699219 C 223.390625 50.699219 223.910156 50.550781 224.425781 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 230.171875 45.335938 C 228.75 45.335938 227.855469 46.191406 227.535156 48.003906 C 227.21875 49.808594 227.808594 50.660156 229.230469 50.660156 C 230.640625 50.660156 231.632812 49.734375 231.9375 48.003906 C 232.242188 46.277344 231.578125 45.335938 230.171875 45.335938 M 231.597656 49.933594 C 231.050781 50.859375 230.105469 51.304688 228.992188 51.304688 C 227.277344 51.304688 226.410156 50.179688 226.796875 48.003906 C 227.179688 45.832031 228.441406 44.695312 230.160156 44.695312 C 231.273438 44.695312 232.0625 45.191406 232.261719 46.089844 L 232.867188 42.65625 C 232.886719 42.558594 232.941406 42.523438 233.039062 42.523438 L 233.460938 42.523438 C 233.570312 42.523438 233.613281 42.558594 233.597656 42.65625 L 232.117188 51.03125 C 232.101562 51.128906 232.042969 51.179688 231.933594 51.179688 L 231.511719 51.179688 C 231.414062 51.179688 231.386719 51.128906 231.402344 51.03125 Z M 231.597656 49.933594 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 234.183594 50.179688 C 234.203125 50.082031 234.261719 50.03125 234.359375 50.03125 L 235.015625 50.03125 C 235.125 50.03125 235.15625 50.082031 235.136719 50.179688 L 234.988281 51.03125 C 234.96875 51.132812 234.921875 51.179688 234.824219 51.179688 L 234.15625 51.179688 C 234.046875 51.179688 234.015625 51.132812 234.035156 51.03125 Z M 234.183594 50.179688 "/>
+</svg>
+      </div>
+      <div class="page-hd-divider"></div>
+      <div class="page-hd-meta">
+        <div class="page-hd-title">ENERGY<em>PULSE</em></div>
+        <div class="page-hd-info">CONDENSED DAILY BRIEFING · MAY 29, 2026 · MORNING EDITION</div>
+      </div>
+    </div>
+    <div class="page-num">PAGE 2 OF 4</div>
+  </div>
+
+  <div class="page-inner">
+  <!-- ④ GEOPOLITICAL -->
+  <div class="sec" style="margin-bottom:10px">
+    <div class="sec-hd"><div class="sec-num">04</div><div class="sec-ico">🌐</div><div class="sec-ttl">GEOPOLITICAL &amp; POLICY DEVELOPMENTS</div></div>
+    <div class="sec-body">
+      <div class="two-col">
+        <div>
+          <div class="item"><span class="fl fl-y">🟡 WATCH</span> <strong>OPEC+ steady through Q3</strong> — May ministerial confirmed +411 Kbd/month production ramp continuation. Saudi signals flexibility to pause if Brent &lt;$70/bbl (WTI now low-$70s). Next full ministerial: late June 2026. <span class="item-src">OPEC Communiqué; Reuters Energy, May 28, 2026</span></div>
+          <div class="item"><span class="fl fl-r">🔴 HIGH IMPACT</span> <strong>FERC Order 1920 deficiency letters to PJM</strong> (May 19) — revisions to long-range transmission planning scenarios required, delaying full implementation into 2027. Uncertainty for developers projecting 2028–2030 timelines. MISO and SPP filings also under review. <span class="item-src">FERC Docket RM21-17, May 19, 2026; Utility Dive, May 22, 2026</span></div>
+          <div class="item"><span class="fl fl-g">🟢 ROUTINE</span> <strong>European gas storage ~52% capacity</strong> — below 5YR avg of ~58%. EU buyers active in LNG spot market, supporting US LNG utilization; TTF–HH arb ~$8/MMBtu remains wide. <span class="item-src">GIE Gas Storage Europe; Argus Media, May 28, 2026</span></div>
+        </div>
+        <div>
+          <div class="item"><span class="fl fl-y">🟡 WATCH</span> <strong>DOE LNG export authorization final rule expected Q3 2026</strong> — ~12 Bcf/d of proposed capacity awaiting authorization. Senate Energy Committee hearing scheduled June 2026. European allies lobbying for expedited approval. <span class="item-src">DOE FECM; E&amp;E News, May 27, 2026</span></div>
+          <div class="item"><span class="fl fl-y">🟡 WATCH</span> <strong>Solar tariff / IRA supply chain</strong> — Section 301 tariffs on Chinese solar equipment remain in force. Domestic module manufacturing now ~35% of US demand (vs. &lt;10% in 2022). IRA manufacturing credits partially offsetting tariff cost pressure. <span class="item-src">SEIA US Solar Report Q1 2026; Bloomberg NEF</span></div>
+          <div class="item"><span class="fl fl-g">🟢 ROUTINE</span> <strong>Empire Wind 2 (816 MW) BOEM COP approved</strong> (May 27) — final federal permitting cleared. Construction mobilization Q3 2026; COD 2029. NYSERDA OREC ~$150/MWh (2022$). Offshore supply chain bottlenecks remain risk. <span class="item-src">BOEM Press Release, May 27, 2026; Equinor IR</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑥ KEY NEWS -->
+  <div class="sec">
+    <div class="sec-hd"><div class="sec-num">06</div><div class="sec-ico">📰</div><div class="sec-ttl">KEY NEWS &amp; MARKET-MOVING EVENTS</div></div>
+    <div class="sec-body">
+      <div class="two-col">
+        <div>
+          <div class="item"><span class="fl fl-r">🔴 HIGH IMPACT</span> <strong>EIA storage surplus hits 19% above 5YR avg</strong> — Thursday's above-consensus +95 Bcf injection was largest May injection in 6 years. Raymond James &amp; BofA cut Q3 HH price targets by $0.10–$0.15/MMBtu to $3.10–$3.25/MMBtu. Bearish for near-term natural gas equities. <span class="item-src">EIA Storage Report, May 28, 2026; RJ &amp; BofA Research</span></div>
+          <div class="item"><span class="fl fl-r">🔴 HIGH IMPACT</span> <strong>NextEra Energy Q1 2026 earnings beat</strong> — Adj. EPS $0.91 vs. $0.86 est. Full-year guidance raised to $3.45–$3.65. Strong wind/solar output + IRA transferability credits ahead of plan. NEE +3.2% on earnings day. <span class="item-src">NextEra Q1 2026 Earnings Release; Bloomberg, May 2026</span></div>
+          <div class="item"><span class="fl fl-y">🟡 WATCH</span> <strong>Vistra Investor Day</strong> (May 27) — Nuclear fleet running &gt;95% capacity factor YTD; contracted through 2030 with data center hyperscalers via long-term PPAs. Largest competitive retail provider in ERCOT. <span class="item-src">Vistra Corp Investor Day, May 27, 2026; Moody's</span></div>
+        </div>
+        <div>
+          <div class="item"><span class="fl fl-y">🟡 WATCH</span> <strong>Plaquemines LNG Phase 1 ramp</strong> — Venture Global continues toward commercial capacity. Monday feedgas nominations will indicate sustained &gt;1 Bcf/d throughput milestone. Critical structural HH demand floor test ahead of summer. <span class="item-src">Wood Mackenzie LNG; Bloomberg Commodity Intelligence</span></div>
+          <div class="item"><span class="fl fl-g">🟢 ROUTINE</span> <strong>PJM RPM Capacity Auction</strong> (2029/2030 delivery year) — results publication June 30. Market expects record clearing prices given tightening reserve margins and data center load growth surge across PJM footprint. <span class="item-src">PJM Capacity Market Calendar, 2026</span></div>
+          <div class="item"><span class="fl fl-g">🟢 ROUTINE</span> <strong>MISO South interconnection queue acceleration</strong> — Additional study staff hires reducing backlogs. First cluster approvals under FERC Order 2023-A expected Q4 2026; primarily solar + storage. <span class="item-src">FERC Order 2023-A Progress Report; MISO, May 2026</span></div>
+        </div>
+      </div>
+      <div class="div"></div>
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:1.5px;color:var(--gig-green);margin-bottom:6px;text-transform:uppercase">Upcoming Data Releases &amp; Events</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 24px">
+        <div style="display:flex;gap:10px;padding:3px 0;font-size:10.5px;border-bottom:1px solid rgba(255,255,255,.04)"><span class="rel-date">Tue Jun 2</span><span style="color:var(--dim)">EIA Short-Term Energy Outlook (STEO) — updated oil &amp; gas price forecasts</span></div>
+        <div style="display:flex;gap:10px;padding:3px 0;font-size:10.5px;border-bottom:1px solid rgba(255,255,255,.04)"><span class="rel-date">Jun 2</span><span style="color:var(--dim)">DOE LNG Hearing, Senate Energy Committee</span></div>
+        <div style="display:flex;gap:10px;padding:3px 0;font-size:10.5px;border-bottom:1px solid rgba(255,255,255,.04)"><span class="rel-date">Thu Jun 5</span><span style="color:var(--dim)">EIA Natural Gas Weekly Storage (week ending May 29)</span></div>
+        <div style="display:flex;gap:10px;padding:3px 0;font-size:10.5px;border-bottom:1px solid rgba(255,255,255,.04)"><span class="rel-date">Thu Jun 5</span><span style="color:var(--dim)">EIA Petroleum Status Report — crude &amp; refined product inventories</span></div>
+        <div style="display:flex;gap:10px;padding:3px 0;font-size:10.5px"><span class="rel-date">Jun 19</span><span style="color:var(--dim)">FERC Open Meeting — transmission compliance orders &amp; offshore wind</span></div>
+        <div style="display:flex;gap:10px;padding:3px 0;font-size:10.5px"><span class="rel-date">Jun 30</span><span style="color:var(--dim)">PJM RPM Capacity Auction results — 2029/2030 delivery year</span></div>
+      </div>
+    </div>
+  </div>
+  </div><!-- /page-inner -->
+
+  <div class="foot-strip">
+    <span>GIG ENERGY CORPORATION · ENERGYPULSE · CONDENSED EDITION · MAY 29, 2026</span>
+    <span>PAGE 2 OF 4</span>
+    <span>PRICES INDICATIVE — NOT FINANCIAL ADVICE</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ PAGE 3 ═══ -->
+<div class="page">
+  <div class="watch-mast">
+    <div class="watch-mast-left">
+      <div class="gig-logo-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="gig-svg-logo" aria-label="Gig Energy Corporation — Energy Managed." viewBox="0 0 239.789 56.8559">
+<defs>
+<clipPath id="clip-0">
+<path clip-rule="nonzero" d="M 25 0 L 131 0 L 131 56.855469 L 25 56.855469 Z M 25 0 "/>
+</clipPath>
+<clipPath id="clip-1">
+<path clip-rule="nonzero" d="M 20 0 L 136 0 L 136 56.855469 L 20 56.855469 Z M 20 0 "/>
+</clipPath>
+<clipPath id="clip-2">
+<path clip-rule="nonzero" d="M 0 0 L 52 0 L 52 56.855469 L 0 56.855469 Z M 0 0 "/>
+</clipPath>
+<clipPath id="clip-3">
+<path clip-rule="nonzero" d="M 0 0 L 61 0 L 61 56.855469 L 0 56.855469 Z M 0 0 "/>
+</clipPath>
+<clipPath id="clip-4">
+<path clip-rule="nonzero" d="M 8 0 L 85 0 L 85 56.855469 L 8 56.855469 Z M 8 0 "/>
+</clipPath>
+</defs>
+<path fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="miter" stroke="rgb(74.510193%, 11.764526%, 17.64679%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.0002625 0.00135 L 0.0002625 -16.443962 " transform="matrix(1, 0, 0, -1, 77.9763, 4.4701)"/>
+<g clip-path="url(#clip-0)">
+<path fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="miter" stroke="rgb(55.2948%, 78.823853%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.0005125 0.00113125 C 3.094262 -1.67465 5.203637 -4.98715 5.203637 -8.79965 C 5.203637 -14.29965 0.816919 -18.760588 -4.593238 -18.760588 C -10.003394 -18.760588 -14.390113 -14.29965 -14.390113 -8.79965 C -14.390113 -4.948088 -12.241675 -1.608244 -9.097144 0.0480062 " transform="matrix(1, 0, 0, -1, 82.5698, 13.3566)"/>
+</g>
+<g clip-path="url(#clip-1)">
+<path fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="miter" stroke="rgb(14.901733%, 13.33313%, 52.549744%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.00185 -0.00024375 C 5.755756 -2.043213 9.888569 -7.613525 9.888569 -14.164306 C 9.888569 -22.449463 3.2831 -29.164306 -4.865338 -29.164306 C -13.013775 -29.164306 -19.619244 -22.449463 -19.619244 -14.164306 C -19.619244 -7.422119 -15.244244 -1.718994 -9.224713 0.171631 " transform="matrix(1, 0, 0, -1, 82.8419, 8.2146)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 23.019531 19.660156 C 23.429688 19.660156 23.699219 19.898438 23.699219 20.339844 L 23.699219 31.199219 C 23.699219 31.8125 23.324219 32.152344 23.019531 32.359375 C 21.386719 33.34375 18.96875 34.027344 15.496094 34.027344 C 8.039062 34.027344 3.953125 30.113281 3.953125 21.703125 C 3.953125 13.328125 8.074219 9.378906 15.734375 9.378906 C 18.59375 9.378906 21.042969 10.128906 22.40625 10.910156 C 22.816406 11.113281 23.019531 11.351562 22.847656 11.726562 L 22.167969 13.496094 C 21.996094 13.871094 21.726562 14.078125 21.214844 13.839844 C 20.058594 13.328125 18.285156 12.75 16.109375 12.75 C 10.285156 12.75 7.765625 15.507812 7.765625 21.703125 C 7.765625 27.964844 10.355469 30.691406 15.835938 30.691406 C 17.539062 30.691406 19.273438 30.28125 20.195312 29.804688 L 20.195312 22.757812 L 15.800781 22.757812 C 15.324219 22.757812 15.085938 22.554688 15.085938 22.109375 L 15.085938 20.339844 C 15.085938 19.898438 15.324219 19.660156 15.800781 19.660156 Z M 23.019531 19.660156 "/>
+<g clip-path="url(#clip-2)">
+<path fill="none" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(100%,100%,100%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.00053125 -0.00045625 C 0.410687 -0.00045625 0.680219 -0.238738 0.680219 -0.680144 L 0.680219 -11.539519 C 0.680219 -12.1528 0.305219 -12.492644 0.00053125 -12.699675 C -1.632281 -13.68405 -4.05025 -14.367644 -7.522906 -14.367644 C -14.979938 -14.367644 -19.065875 -10.453581 -19.065875 -2.043425 C -19.065875 6.331575 -14.944781 10.280794 -7.284625 10.280794 C -4.42525 10.280794 -1.976031 9.530794 -0.61275 8.749544 C -0.202594 8.546419 0.00053125 8.308137 -0.171344 7.933137 L -0.851031 6.163606 C -1.022906 5.788606 -1.292438 5.581575 -1.804156 5.819856 C -2.960406 6.331575 -4.733844 6.9097 -6.909625 6.9097 C -12.733844 6.9097 -15.253375 4.151887 -15.253375 -2.043425 C -15.253375 -8.305144 -12.663531 -11.031706 -7.183063 -11.031706 C -5.479938 -11.031706 -3.745563 -10.62155 -2.823688 -10.144988 L -2.823688 -3.098113 L -7.218219 -3.098113 C -7.694781 -3.098113 -7.933063 -2.894988 -7.933063 -2.449675 L -7.933063 -0.680144 C -7.933063 -0.238738 -7.694781 -0.00045625 -7.218219 -0.00045625 Z M 0.00053125 -0.00045625 " transform="matrix(1, 0, 0, -1, 23.019, 19.6597)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 28.636719 10.433594 C 28.636719 9.957031 28.84375 9.753906 29.285156 9.753906 L 31.667969 9.753906 C 32.144531 9.753906 32.382812 9.957031 32.382812 10.433594 L 32.382812 33.003906 C 32.382812 33.480469 32.144531 33.6875 31.667969 33.6875 L 29.285156 33.6875 C 28.84375 33.6875 28.636719 33.480469 28.636719 33.003906 Z M 28.636719 10.433594 "/>
+<g clip-path="url(#clip-3)">
+<path fill="none" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(100%,100%,100%)" stroke-opacity="1" stroke-miterlimit="10" d="M -0.00128125 0.00040625 C -0.00128125 0.476969 0.20575 0.680094 0.647156 0.680094 L 3.029969 0.680094 C 3.506531 0.680094 3.744812 0.476969 3.744812 0.00040625 L 3.744812 -22.569906 C 3.744812 -23.046469 3.506531 -23.2535 3.029969 -23.2535 L 0.647156 -23.2535 C 0.20575 -23.2535 -0.00128125 -23.046469 -0.00128125 -22.569906 Z M -0.00128125 0.00040625 " transform="matrix(1, 0, 0, -1, 28.638, 10.434)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 55.769531 19.660156 C 56.179688 19.660156 56.453125 19.898438 56.453125 20.339844 L 56.453125 31.199219 C 56.453125 31.8125 56.078125 32.152344 55.769531 32.359375 C 54.136719 33.34375 51.71875 34.027344 48.246094 34.027344 C 40.792969 34.027344 36.707031 30.113281 36.707031 21.703125 C 36.707031 13.328125 40.824219 9.378906 48.484375 9.378906 C 51.34375 9.378906 53.796875 10.128906 55.15625 10.910156 C 55.566406 11.113281 55.769531 11.351562 55.601562 11.726562 L 54.917969 13.496094 C 54.75 13.871094 54.476562 14.078125 53.96875 13.839844 C 52.808594 13.328125 51.039062 12.75 48.859375 12.75 C 43.039062 12.75 40.519531 15.507812 40.519531 21.703125 C 40.519531 27.964844 43.105469 30.691406 48.585938 30.691406 C 50.289062 30.691406 52.027344 30.28125 52.945312 29.804688 L 52.945312 22.757812 L 48.554688 22.757812 C 48.078125 22.757812 47.839844 22.554688 47.839844 22.109375 L 47.839844 20.339844 C 47.839844 19.898438 48.078125 19.660156 48.554688 19.660156 Z M 55.769531 19.660156 "/>
+<g clip-path="url(#clip-4)">
+<path fill="none" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(100%,100%,100%)" stroke-opacity="1" stroke-miterlimit="10" d="M -0.00126875 -0.00045625 C 0.408887 -0.00045625 0.682325 -0.238738 0.682325 -0.680144 L 0.682325 -11.539519 C 0.682325 -12.1528 0.307325 -12.492644 -0.00126875 -12.699675 C -1.634081 -13.68405 -4.05205 -14.367644 -7.524706 -14.367644 C -14.977831 -14.367644 -19.063769 -10.453581 -19.063769 -2.043425 C -19.063769 6.331575 -14.946581 10.280794 -7.286425 10.280794 C -4.42705 10.280794 -1.973925 9.530794 -0.61455 8.749544 C -0.204394 8.546419 -0.00126875 8.308137 -0.169238 7.933137 L -0.852831 6.163606 C -1.0208 5.788606 -1.294238 5.581575 -1.80205 5.819856 C -2.962206 6.331575 -4.731738 6.9097 -6.911425 6.9097 C -12.731738 6.9097 -15.251269 4.151887 -15.251269 -2.043425 C -15.251269 -8.305144 -12.665331 -11.031706 -7.184863 -11.031706 C -5.481738 -11.031706 -3.743456 -10.62155 -2.825488 -10.144988 L -2.825488 -3.098113 L -7.216113 -3.098113 C -7.692675 -3.098113 -7.930956 -2.894988 -7.930956 -2.449675 L -7.930956 -0.680144 C -7.930956 -0.238738 -7.692675 -0.00045625 -7.216113 -0.00045625 Z M -0.00126875 -0.00045625 " transform="matrix(1, 0, 0, -1, 55.7708, 19.6597)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 102.046875 20.457031 L 115.996094 20.457031 L 115.996094 20.234375 C 115.996094 15.84375 113.824219 12.714844 109.25 12.714844 C 104.902344 12.714844 102.320312 15.253906 102.046875 20.457031 M 116.539062 29.5625 C 117.039062 29.289062 117.355469 29.5625 117.535156 29.972656 L 118.214844 31.644531 C 118.304688 32.050781 118.078125 32.28125 117.71875 32.460938 C 115.859375 33.410156 113.28125 34.132812 110.425781 34.132812 C 102.953125 34.132812 98.425781 29.425781 98.425781 21.90625 C 98.425781 13.984375 102.636719 9.59375 109.25 9.59375 C 115.953125 9.59375 119.527344 14.164062 119.527344 20.507812 L 119.527344 22.769531 C 119.527344 23.3125 119.304688 23.492188 118.757812 23.492188 L 102.046875 23.492188 C 102.367188 27.933594 105.625 31.011719 110.609375 31.011719 C 113.234375 31.011719 114.820312 30.46875 116.539062 29.5625 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 144.808594 32.871094 C 144.808594 33.367188 144.582031 33.59375 144.085938 33.59375 L 141.867188 33.59375 C 141.367188 33.59375 141.144531 33.367188 141.144531 32.871094 L 141.144531 18.605469 C 141.144531 15.070312 139.554688 12.988281 135.390625 12.988281 C 131.042969 12.988281 128.371094 15.660156 128.371094 19.691406 L 128.371094 32.871094 C 128.371094 33.367188 128.144531 33.59375 127.648438 33.59375 L 125.425781 33.59375 C 124.929688 33.59375 124.75 33.367188 124.75 32.871094 L 124.75 10.859375 C 124.75 10.363281 124.929688 10.132812 125.425781 10.132812 L 127.601562 10.132812 C 128.101562 10.132812 128.324219 10.363281 128.324219 10.816406 L 128.371094 13.757812 C 129.367188 11.855469 131.496094 9.59375 136.386719 9.59375 C 142.046875 9.59375 144.808594 12.945312 144.808594 18.105469 Z M 144.808594 32.871094 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 153.472656 20.457031 L 167.421875 20.457031 L 167.421875 20.234375 C 167.421875 15.84375 165.246094 12.714844 160.675781 12.714844 C 156.328125 12.714844 153.746094 15.253906 153.472656 20.457031 M 167.964844 29.5625 C 168.460938 29.289062 168.777344 29.5625 168.960938 29.972656 L 169.640625 31.644531 C 169.730469 32.050781 169.503906 32.28125 169.140625 32.460938 C 167.285156 33.410156 164.703125 34.132812 161.851562 34.132812 C 154.378906 34.132812 149.851562 29.425781 149.851562 21.90625 C 149.851562 13.984375 154.0625 9.59375 160.675781 9.59375 C 167.375 9.59375 170.953125 14.164062 170.953125 20.507812 L 170.953125 22.769531 C 170.953125 23.3125 170.726562 23.492188 170.183594 23.492188 L 153.472656 23.492188 C 153.789062 27.933594 157.050781 31.011719 162.03125 31.011719 C 164.65625 31.011719 166.242188 30.46875 167.964844 29.5625 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 179.164062 10.132812 C 179.660156 10.132812 179.890625 10.363281 179.890625 10.816406 L 179.890625 15.253906 C 180.660156 13.214844 183.195312 10.046875 187.539062 10.046875 C 187.859375 10.046875 188.085938 10.132812 188.085938 10.589844 L 188.085938 13.441406 C 188.085938 13.894531 187.90625 14.027344 187.496094 14.027344 C 187.222656 14.027344 186.996094 13.9375 186.410156 13.9375 C 182.648438 13.9375 179.890625 18.242188 179.890625 22.453125 L 179.890625 32.871094 C 179.890625 33.367188 179.660156 33.59375 179.164062 33.59375 L 176.945312 33.59375 C 176.445312 33.59375 176.21875 33.367188 176.21875 32.871094 L 176.21875 10.859375 C 176.21875 10.363281 176.445312 10.132812 176.945312 10.132812 Z M 179.164062 10.132812 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 200.773438 12.714844 C 196.652344 12.714844 193.980469 14.847656 193.980469 20.644531 C 193.980469 26.4375 196.652344 28.519531 200.773438 28.519531 C 204.984375 28.519531 207.65625 25.714844 207.65625 20.328125 C 207.65625 15.027344 204.984375 12.714844 200.773438 12.714844 M 211.277344 30.242188 C 211.277344 35.949219 207.109375 39.117188 200.773438 39.117188 C 197.875 39.117188 195.019531 38.753906 192.847656 37.757812 C 192.53125 37.621094 192.257812 37.398438 192.394531 37.03125 L 193.074219 35.179688 C 193.210938 34.769531 193.390625 34.542969 193.933594 34.722656 C 196.019531 35.539062 198.28125 35.902344 200.683594 35.902344 C 204.941406 35.902344 207.699219 33.773438 207.699219 30.015625 L 207.699219 27.433594 C 206.480469 30.152344 203.445312 31.554688 200.140625 31.554688 C 194.570312 31.554688 190.265625 28.292969 190.265625 20.644531 C 190.265625 12.988281 194.386719 9.59375 200.003906 9.59375 C 203.355469 9.59375 206.523438 11.175781 207.699219 13.578125 L 207.699219 10.816406 C 207.746094 10.363281 207.929688 10.132812 208.425781 10.132812 L 210.601562 10.132812 C 211.097656 10.132812 211.277344 10.363281 211.277344 10.859375 Z M 211.277344 30.242188 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 228.457031 32.097656 C 227.007812 36.851562 225.332031 38.753906 220.890625 38.753906 C 219.625 38.753906 218.265625 38.53125 217.585938 38.257812 C 217.222656 38.121094 216.953125 37.941406 217.042969 37.578125 L 217.585938 35.71875 C 217.722656 35.3125 217.859375 35.179688 218.355469 35.222656 C 218.808594 35.3125 219.398438 35.539062 220.667969 35.539062 C 222.792969 35.539062 223.882812 34.542969 223.882812 33.050781 C 223.882812 32.597656 223.792969 32.097656 223.5625 31.554688 L 215.503906 10.90625 C 215.324219 10.453125 215.503906 10.132812 216 10.132812 L 218.402344 10.132812 C 218.851562 10.132812 219.035156 10.40625 219.171875 10.816406 L 223.699219 22.722656 L 226.054688 29.742188 L 226.144531 29.742188 L 228.273438 22.722656 L 232.078125 10.816406 C 232.210938 10.40625 232.394531 10.132812 232.847656 10.132812 L 235.246094 10.132812 C 235.746094 10.132812 235.925781 10.453125 235.792969 10.90625 Z M 228.457031 32.097656 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 141.851562 47.09375 L 141.253906 50.476562 L 145.230469 50.476562 C 145.332031 50.476562 145.386719 50.511719 145.367188 50.625 L 145.296875 51.019531 C 145.277344 51.132812 145.207031 51.179688 145.109375 51.179688 L 140.523438 51.179688 C 140.414062 51.179688 140.371094 51.132812 140.390625 51.019531 L 141.863281 42.671875 C 141.878906 42.570312 141.9375 42.523438 142.039062 42.523438 L 146.597656 42.523438 C 146.710938 42.523438 146.75 42.570312 146.734375 42.671875 L 146.664062 43.066406 C 146.644531 43.175781 146.585938 43.226562 146.472656 43.226562 L 142.53125 43.226562 L 141.972656 46.398438 L 145.789062 46.398438 C 145.890625 46.398438 145.929688 46.460938 145.910156 46.558594 L 145.84375 46.929688 C 145.828125 47.027344 145.769531 47.09375 145.667969 47.09375 Z M 141.851562 47.09375 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 152.191406 51.03125 C 152.175781 51.132812 152.128906 51.179688 152.019531 51.179688 L 151.597656 51.179688 C 151.5 51.179688 151.457031 51.132812 151.472656 51.03125 L 152.179688 47.042969 C 152.359375 46.003906 151.992188 45.375 150.777344 45.375 C 149.519531 45.375 148.535156 46.175781 148.335938 47.328125 L 147.679688 51.03125 C 147.664062 51.132812 147.605469 51.179688 147.507812 51.179688 L 147.074219 51.179688 C 146.976562 51.179688 146.945312 51.132812 146.964844 51.03125 L 148.027344 45.003906 C 148.046875 44.894531 148.09375 44.84375 148.191406 44.84375 L 148.609375 44.84375 C 148.710938 44.84375 148.75 44.894531 148.734375 44.992188 L 148.574219 45.957031 C 148.933594 45.398438 149.675781 44.695312 151.058594 44.695312 C 152.582031 44.695312 153.152344 45.585938 152.910156 46.957031 Z M 152.191406 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 155.121094 47.734375 L 159.25 47.734375 L 159.269531 47.636719 C 159.503906 46.289062 159.042969 45.324219 157.671875 45.324219 C 156.335938 45.324219 155.460938 46.152344 155.121094 47.734375 M 158.800781 50.289062 C 158.921875 50.230469 158.972656 50.289062 158.996094 50.378906 L 159.0625 50.699219 C 159.070312 50.785156 159.023438 50.835938 158.933594 50.871094 C 158.390625 51.132812 157.664062 51.328125 156.886719 51.328125 C 154.910156 51.328125 153.992188 50.066406 154.355469 48.019531 C 154.726562 45.90625 156.003906 44.695312 157.785156 44.695312 C 159.5625 44.695312 160.269531 45.957031 159.964844 47.683594 L 159.875 48.191406 C 159.855469 48.300781 159.796875 48.339844 159.6875 48.339844 L 155.015625 48.339844 C 154.824219 49.773438 155.539062 50.699219 157.035156 50.699219 C 157.761719 50.699219 158.285156 50.550781 158.800781 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 162.714844 44.84375 C 162.8125 44.84375 162.851562 44.894531 162.835938 44.992188 L 162.597656 46.351562 C 162.910156 45.757812 163.792969 44.820312 165.015625 44.820312 C 165.089844 44.820312 165.136719 44.832031 165.121094 44.929688 L 165.027344 45.460938 C 165.007812 45.558594 164.953125 45.597656 164.867188 45.597656 C 164.816406 45.597656 164.757812 45.574219 164.636719 45.574219 C 163.597656 45.574219 162.523438 46.769531 162.3125 47.957031 L 161.769531 51.03125 C 161.753906 51.132812 161.695312 51.179688 161.597656 51.179688 L 161.175781 51.179688 C 161.0625 51.179688 161.023438 51.132812 161.039062 51.03125 L 162.105469 45.003906 C 162.121094 44.894531 162.179688 44.84375 162.292969 44.84375 Z M 162.714844 44.84375 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 168.574219 45.324219 C 167.324219 45.324219 166.441406 46.054688 166.15625 47.683594 C 165.867188 49.316406 166.496094 50.03125 167.742188 50.03125 C 169.003906 50.03125 169.9375 49.15625 170.210938 47.597656 C 170.480469 46.066406 169.832031 45.324219 168.574219 45.324219 M 170.453125 50.289062 C 170.175781 51.871094 168.96875 52.6875 167.3125 52.6875 C 166.558594 52.6875 165.800781 52.5625 165.269531 52.292969 C 165.214844 52.253906 165.167969 52.21875 165.207031 52.144531 L 165.40625 51.785156 C 165.449219 51.699219 165.492188 51.648438 165.597656 51.6875 C 166.132812 51.933594 166.757812 52.046875 167.414062 52.046875 C 168.660156 52.046875 169.535156 51.441406 169.746094 50.242188 L 169.902344 49.363281 C 169.421875 50.179688 168.511719 50.648438 167.523438 50.648438 C 165.992188 50.648438 165.074219 49.6875 165.425781 47.683594 C 165.777344 45.683594 167.003906 44.695312 168.546875 44.695312 C 169.539062 44.695312 170.316406 45.175781 170.507812 45.929688 L 170.671875 44.992188 C 170.6875 44.894531 170.746094 44.84375 170.855469 44.84375 L 171.265625 44.84375 C 171.378906 44.84375 171.40625 44.894531 171.386719 45.003906 Z M 170.453125 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 174.960938 50.933594 C 174.371094 52.105469 173.828125 52.589844 172.792969 52.589844 C 172.457031 52.589844 172.160156 52.527344 171.984375 52.464844 C 171.914062 52.441406 171.863281 52.390625 171.898438 52.316406 L 172.0625 51.957031 C 172.101562 51.871094 172.148438 51.835938 172.253906 51.859375 C 172.382812 51.882812 172.558594 51.945312 172.867188 51.945312 C 173.683594 51.945312 174.132812 51.292969 174.027344 50.773438 L 172.792969 45.015625 C 172.773438 44.917969 172.808594 44.84375 172.921875 44.84375 L 173.378906 44.84375 C 173.476562 44.84375 173.503906 44.90625 173.527344 44.992188 L 174.226562 48.375 L 174.585938 50.402344 L 174.609375 50.402344 L 175.609375 48.375 L 177.34375 44.992188 C 177.382812 44.90625 177.433594 44.84375 177.53125 44.84375 L 177.988281 44.84375 C 178.101562 44.84375 178.125 44.917969 178.070312 45.015625 Z M 174.960938 50.933594 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 186.253906 48.5 L 184.292969 43.855469 L 183.03125 51.019531 C 183.011719 51.132812 182.953125 51.179688 182.839844 51.179688 L 182.398438 51.179688 C 182.285156 51.179688 182.242188 51.132812 182.265625 51.019531 L 183.734375 42.671875 C 183.753906 42.570312 183.8125 42.523438 183.921875 42.523438 L 184.40625 42.523438 C 184.503906 42.523438 184.5625 42.546875 184.585938 42.621094 L 186.652344 47.449219 L 190.417969 42.621094 C 190.46875 42.546875 190.535156 42.523438 190.632812 42.523438 L 191.117188 42.523438 C 191.226562 42.523438 191.253906 42.570312 191.238281 42.671875 L 189.765625 51.019531 C 189.746094 51.132812 189.699219 51.179688 189.589844 51.179688 L 189.132812 51.179688 C 189.03125 51.179688 188.992188 51.132812 189.011719 51.019531 L 190.273438 43.855469 L 186.675781 48.5 C 186.613281 48.574219 186.53125 48.609375 186.445312 48.609375 C 186.359375 48.609375 186.292969 48.574219 186.253906 48.5 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 196.539062 48.019531 C 194.398438 48.09375 192.664062 48.179688 192.433594 49.488281 C 192.3125 50.167969 192.71875 50.6875 193.753906 50.6875 C 195.289062 50.6875 196.222656 49.796875 196.410156 48.734375 Z M 196.710938 51.03125 C 196.691406 51.132812 196.636719 51.179688 196.535156 51.179688 L 196.140625 51.179688 C 196.042969 51.179688 196.011719 51.132812 196.03125 51.03125 L 196.210938 50.007812 C 195.890625 50.488281 195.15625 51.292969 193.539062 51.292969 C 192.152344 51.292969 191.539062 50.574219 191.726562 49.511719 C 192.035156 47.746094 193.996094 47.5 196.640625 47.4375 L 196.722656 46.957031 C 196.917969 45.855469 196.539062 45.351562 195.265625 45.351562 C 194.472656 45.351562 193.761719 45.535156 193.164062 45.769531 C 193.070312 45.808594 193.003906 45.769531 192.996094 45.683594 L 192.945312 45.324219 C 192.9375 45.238281 192.980469 45.191406 193.0625 45.152344 C 193.703125 44.894531 194.601562 44.695312 195.429688 44.695312 C 197.136719 44.695312 197.691406 45.460938 197.433594 46.933594 Z M 196.710938 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 203.902344 51.03125 C 203.886719 51.132812 203.839844 51.179688 203.730469 51.179688 L 203.308594 51.179688 C 203.210938 51.179688 203.167969 51.132812 203.1875 51.03125 L 203.890625 47.042969 C 204.074219 46.003906 203.703125 45.375 202.492188 45.375 C 201.230469 45.375 200.25 46.175781 200.046875 47.328125 L 199.390625 51.03125 C 199.375 51.132812 199.316406 51.179688 199.21875 51.179688 L 198.785156 51.179688 C 198.6875 51.179688 198.65625 51.132812 198.675781 51.03125 L 199.738281 45.003906 C 199.757812 44.894531 199.804688 44.84375 199.902344 44.84375 L 200.320312 44.84375 C 200.421875 44.84375 200.460938 44.894531 200.445312 44.992188 L 200.289062 45.957031 C 200.644531 45.398438 201.386719 44.695312 202.773438 44.695312 C 204.292969 44.695312 204.863281 45.585938 204.621094 46.957031 Z M 203.902344 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 210.480469 48.019531 C 208.339844 48.09375 206.605469 48.179688 206.375 49.488281 C 206.253906 50.167969 206.660156 50.6875 207.695312 50.6875 C 209.230469 50.6875 210.164062 49.796875 210.351562 48.734375 Z M 210.652344 51.03125 C 210.632812 51.132812 210.578125 51.179688 210.476562 51.179688 L 210.082031 51.179688 C 209.984375 51.179688 209.953125 51.132812 209.972656 51.03125 L 210.152344 50.007812 C 209.832031 50.488281 209.097656 51.292969 207.480469 51.292969 C 206.09375 51.292969 205.480469 50.574219 205.667969 49.511719 C 205.976562 47.746094 207.9375 47.5 210.582031 47.4375 L 210.664062 46.957031 C 210.859375 45.855469 210.480469 45.351562 209.207031 45.351562 C 208.414062 45.351562 207.703125 45.535156 207.105469 45.769531 C 207.011719 45.808594 206.945312 45.769531 206.9375 45.683594 L 206.886719 45.324219 C 206.878906 45.238281 206.921875 45.191406 207.003906 45.152344 C 207.644531 44.894531 208.542969 44.695312 209.371094 44.695312 C 211.078125 44.695312 211.632812 45.460938 211.375 46.933594 Z M 210.652344 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 216.007812 45.324219 C 214.761719 45.324219 213.875 46.054688 213.589844 47.683594 C 213.300781 49.316406 213.929688 50.03125 215.179688 50.03125 C 216.4375 50.03125 217.371094 49.15625 217.648438 47.597656 C 217.917969 46.066406 217.269531 45.324219 216.007812 45.324219 M 217.890625 50.289062 C 217.609375 51.871094 216.402344 52.6875 214.746094 52.6875 C 213.992188 52.6875 213.238281 52.5625 212.703125 52.292969 C 212.648438 52.253906 212.605469 52.21875 212.644531 52.144531 L 212.84375 51.785156 C 212.882812 51.699219 212.929688 51.648438 213.03125 51.6875 C 213.570312 51.933594 214.195312 52.046875 214.847656 52.046875 C 216.097656 52.046875 216.96875 51.441406 217.179688 50.242188 L 217.335938 49.363281 C 216.859375 50.179688 215.945312 50.648438 214.957031 50.648438 C 213.425781 50.648438 212.507812 49.6875 212.859375 47.683594 C 213.214844 45.683594 214.4375 44.695312 215.984375 44.695312 C 216.972656 44.695312 217.75 45.175781 217.941406 45.929688 L 218.105469 44.992188 C 218.125 44.894531 218.183594 44.84375 218.292969 44.84375 L 218.699219 44.84375 C 218.8125 44.84375 218.839844 44.894531 218.820312 45.003906 Z M 217.890625 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 220.75 47.734375 L 224.878906 47.734375 L 224.894531 47.636719 C 225.132812 46.289062 224.671875 45.324219 223.300781 45.324219 C 221.964844 45.324219 221.089844 46.152344 220.75 47.734375 M 224.425781 50.289062 C 224.550781 50.230469 224.601562 50.289062 224.621094 50.378906 L 224.6875 50.699219 C 224.699219 50.785156 224.652344 50.835938 224.558594 50.871094 C 224.019531 51.132812 223.292969 51.328125 222.515625 51.328125 C 220.535156 51.328125 219.621094 50.066406 219.980469 48.019531 C 220.355469 45.90625 221.632812 44.695312 223.410156 44.695312 C 225.191406 44.695312 225.894531 45.957031 225.589844 47.683594 L 225.5 48.191406 C 225.480469 48.300781 225.425781 48.339844 225.316406 48.339844 L 220.644531 48.339844 C 220.453125 49.773438 221.164062 50.699219 222.660156 50.699219 C 223.390625 50.699219 223.910156 50.550781 224.425781 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 230.171875 45.335938 C 228.75 45.335938 227.855469 46.191406 227.535156 48.003906 C 227.21875 49.808594 227.808594 50.660156 229.230469 50.660156 C 230.640625 50.660156 231.632812 49.734375 231.9375 48.003906 C 232.242188 46.277344 231.578125 45.335938 230.171875 45.335938 M 231.597656 49.933594 C 231.050781 50.859375 230.105469 51.304688 228.992188 51.304688 C 227.277344 51.304688 226.410156 50.179688 226.796875 48.003906 C 227.179688 45.832031 228.441406 44.695312 230.160156 44.695312 C 231.273438 44.695312 232.0625 45.191406 232.261719 46.089844 L 232.867188 42.65625 C 232.886719 42.558594 232.941406 42.523438 233.039062 42.523438 L 233.460938 42.523438 C 233.570312 42.523438 233.613281 42.558594 233.597656 42.65625 L 232.117188 51.03125 C 232.101562 51.128906 232.042969 51.179688 231.933594 51.179688 L 231.511719 51.179688 C 231.414062 51.179688 231.386719 51.128906 231.402344 51.03125 Z M 231.597656 49.933594 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 234.183594 50.179688 C 234.203125 50.082031 234.261719 50.03125 234.359375 50.03125 L 235.015625 50.03125 C 235.125 50.03125 235.15625 50.082031 235.136719 50.179688 L 234.988281 51.03125 C 234.96875 51.132812 234.921875 51.179688 234.824219 51.179688 L 234.15625 51.179688 C 234.046875 51.179688 234.015625 51.132812 234.035156 51.03125 Z M 234.183594 50.179688 "/>
+</svg>
+      </div>
+      <div class="watch-mast-divider"></div>
+      <div class="watch-mast-title-block">
+        <div class="watch-logo">TOMORROW'S WATCH LIST</div>
+        <div class="watch-sub">MONDAY, JUNE 1, 2026 · KEY ITEMS TO MONITOR</div>
+      </div>
+    </div>
+    <div class="watch-mast-r">
+      <div style="font-size:12px;color:var(--gig-green);font-weight:600">MAY 29, 2026</div>
+      <div style="font-size:10px;color:var(--dim)">PAGE 3 OF 4</div>
+    </div>
+  </div>
+
+  <div class="page-inner">
+  <div class="watch-card">
+    <div class="watch-card-hd">
+      <div class="watch-n">01</div>
+      <div class="watch-t">ERCOT POST-HOLIDAY DEMAND RAMP &amp; TEXAS HEAT ONSET</div>
+      <div class="watch-tag">⚡ ELECTRICITY · ERCOT</div>
+    </div>
+    <div class="watch-body">
+      <p>Industrial and commercial load returns across ERCOT Monday after the Memorial Day weekend as a developing heat ridge begins moving into the Dallas–Fort Worth corridor. <strong>Dallas highs are forecast to reach 96–100°F by Wednesday June 4</strong>, approximately 8–10°F above seasonal normal, pushing system demand from the holiday trough (~55–60 GW) toward the 70–75 GW range by midweek — territory that stress-tests ERCOT's 10.8% reserve margin. The <strong>4CP (four coincident peak) tracking window</strong> effectively opens for transmission customers, meaning large industrial users will be actively shedding load during peak hours to avoid transmission cost allocations.</p>
+      <p style="margin-top:6px">Watch for: ERCOT hourly load forecast updates Monday morning; any Emergency Condition or Conservation Watch notices; real-time price spikes above $150/MWh at North and Houston hubs during the 4–8 PM ramp. Battery storage dispatch capacity (~3.5 GW deployed) will be tested. If midday solar exceeds 24 GW and batteries charge fully by 3 PM, the evening ramp could be more severe than ERCOT's base forecast.</p>
+      <div class="watch-src">ERCOT SARA May 2026; NOAA CPC Heat Outlook; DTN Energy Weather; ERCOT.com Real-Time Dashboard</div>
+    </div>
+  </div>
+
+  <div class="watch-card">
+    <div class="watch-card-hd">
+      <div class="watch-n">02</div>
+      <div class="watch-t">EIA SHORT-TERM ENERGY OUTLOOK — TUESDAY JUNE 2</div>
+      <div class="watch-tag">🔥 NATURAL GAS · CRUDE OIL · MACRO</div>
+    </div>
+    <div class="watch-body">
+      <p>The EIA's June 2026 Short-Term Energy Outlook — the agency's most comprehensive monthly price forecast — will be released Tuesday morning and is the primary scheduled data release of the week. Given the current market setup — storage surplus at +19% above the 5-year average, strong LNG feedgas demand near 14.2 Bcf/d, and a building Texas heat event — the STEO is likely to show <strong>a modest upward revision to the summer 2026 Henry Hub forecast</strong>, possibly to $3.15–$3.30/MMBtu for Q3. On crude oil, the STEO will update the WTI price forecast and US production outlook. Watch also for the power burn forecast — any upward revision to summer gas burn (currently ~35 Bcf/d) would be a constructive signal for gas bulls. Release: ~12:00 PM ET at EIA.gov.</p>
+      <div class="watch-src">EIA STEO Release Calendar; EIA.gov; Raymond James Energy Research Preview, May 28, 2026</div>
+    </div>
+  </div>
+
+  <div class="watch-card">
+    <div class="watch-card-hd">
+      <div class="watch-n">03</div>
+      <div class="watch-t">LNG FEEDGAS NOMINATIONS &amp; GULF COAST INFRASTRUCTURE — HURRICANE SEASON OPENS</div>
+      <div class="watch-tag">🌀 LNG · NATURAL GAS · WEATHER RISK</div>
+    </div>
+    <div class="watch-body">
+      <p>Two intersecting catalysts make LNG feedgas flows the most critical real-time data point heading into next week. First, <strong>Plaquemines LNG Phase 1</strong> (Venture Global) is in active commercial ramp — Monday nominations will indicate whether the terminal has crossed the ~1.0 Bcf/d sustained throughput threshold, a meaningful upside catalyst for Henry Hub given the bearish storage backdrop. If the full LNG complex holds feedgas demand above 14.5 Bcf/d, it provides a tangible floor under prices even as storage injections remain robust.</p>
+      <p style="margin-top:6px">Second, <strong>June 1 marks the official start of the 2026 Atlantic hurricane season</strong> — NOAA forecasts 17–23 named storms and 4–7 major hurricanes. Gulf of Mexico energy infrastructure (~1.8 MMbbl/d crude, 3.5 Bcf/d gas, Sabine Pass, Freeport, Corpus Christi, and Plaquemines LNG) begins elevated storm exposure immediately. Monitor NOAA's National Hurricane Center tropical weather outlooks daily beginning June 1.</p>
+      <div class="watch-src">Wood Mackenzie LNG Feedgas Tracker; NOAA NHC Tropical Weather Outlook; NOAA 2026 Hurricane Season Forecast, May 22, 2026</div>
+    </div>
+  </div>
+  </div><!-- /page-inner -->
+
+  <div class="foot-strip">
+    <span>GIG ENERGY CORPORATION · ENERGYPULSE · CONDENSED EDITION · MAY 29, 2026</span>
+    <span>PAGE 3 OF 4</span>
+    <span>PRICES INDICATIVE — NOT FINANCIAL ADVICE</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ PAGE 4 ═══ -->
+<div class="page">
+  <div class="ci-mast">
+    <div class="ci-mast-left">
+      <div class="gig-logo-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="gig-svg-logo" aria-label="Gig Energy Corporation — Energy Managed." viewBox="0 0 239.789 56.8559">
+<defs>
+<clipPath id="clip-0">
+<path clip-rule="nonzero" d="M 25 0 L 131 0 L 131 56.855469 L 25 56.855469 Z M 25 0 "/>
+</clipPath>
+<clipPath id="clip-1">
+<path clip-rule="nonzero" d="M 20 0 L 136 0 L 136 56.855469 L 20 56.855469 Z M 20 0 "/>
+</clipPath>
+<clipPath id="clip-2">
+<path clip-rule="nonzero" d="M 0 0 L 52 0 L 52 56.855469 L 0 56.855469 Z M 0 0 "/>
+</clipPath>
+<clipPath id="clip-3">
+<path clip-rule="nonzero" d="M 0 0 L 61 0 L 61 56.855469 L 0 56.855469 Z M 0 0 "/>
+</clipPath>
+<clipPath id="clip-4">
+<path clip-rule="nonzero" d="M 8 0 L 85 0 L 85 56.855469 L 8 56.855469 Z M 8 0 "/>
+</clipPath>
+</defs>
+<path fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="miter" stroke="rgb(74.510193%, 11.764526%, 17.64679%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.0002625 0.00135 L 0.0002625 -16.443962 " transform="matrix(1, 0, 0, -1, 77.9763, 4.4701)"/>
+<g clip-path="url(#clip-0)">
+<path fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="miter" stroke="rgb(55.2948%, 78.823853%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.0005125 0.00113125 C 3.094262 -1.67465 5.203637 -4.98715 5.203637 -8.79965 C 5.203637 -14.29965 0.816919 -18.760588 -4.593238 -18.760588 C -10.003394 -18.760588 -14.390113 -14.29965 -14.390113 -8.79965 C -14.390113 -4.948088 -12.241675 -1.608244 -9.097144 0.0480062 " transform="matrix(1, 0, 0, -1, 82.5698, 13.3566)"/>
+</g>
+<g clip-path="url(#clip-1)">
+<path fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="miter" stroke="rgb(14.901733%, 13.33313%, 52.549744%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.00185 -0.00024375 C 5.755756 -2.043213 9.888569 -7.613525 9.888569 -14.164306 C 9.888569 -22.449463 3.2831 -29.164306 -4.865338 -29.164306 C -13.013775 -29.164306 -19.619244 -22.449463 -19.619244 -14.164306 C -19.619244 -7.422119 -15.244244 -1.718994 -9.224713 0.171631 " transform="matrix(1, 0, 0, -1, 82.8419, 8.2146)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 23.019531 19.660156 C 23.429688 19.660156 23.699219 19.898438 23.699219 20.339844 L 23.699219 31.199219 C 23.699219 31.8125 23.324219 32.152344 23.019531 32.359375 C 21.386719 33.34375 18.96875 34.027344 15.496094 34.027344 C 8.039062 34.027344 3.953125 30.113281 3.953125 21.703125 C 3.953125 13.328125 8.074219 9.378906 15.734375 9.378906 C 18.59375 9.378906 21.042969 10.128906 22.40625 10.910156 C 22.816406 11.113281 23.019531 11.351562 22.847656 11.726562 L 22.167969 13.496094 C 21.996094 13.871094 21.726562 14.078125 21.214844 13.839844 C 20.058594 13.328125 18.285156 12.75 16.109375 12.75 C 10.285156 12.75 7.765625 15.507812 7.765625 21.703125 C 7.765625 27.964844 10.355469 30.691406 15.835938 30.691406 C 17.539062 30.691406 19.273438 30.28125 20.195312 29.804688 L 20.195312 22.757812 L 15.800781 22.757812 C 15.324219 22.757812 15.085938 22.554688 15.085938 22.109375 L 15.085938 20.339844 C 15.085938 19.898438 15.324219 19.660156 15.800781 19.660156 Z M 23.019531 19.660156 "/>
+<g clip-path="url(#clip-2)">
+<path fill="none" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(100%,100%,100%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.00053125 -0.00045625 C 0.410687 -0.00045625 0.680219 -0.238738 0.680219 -0.680144 L 0.680219 -11.539519 C 0.680219 -12.1528 0.305219 -12.492644 0.00053125 -12.699675 C -1.632281 -13.68405 -4.05025 -14.367644 -7.522906 -14.367644 C -14.979938 -14.367644 -19.065875 -10.453581 -19.065875 -2.043425 C -19.065875 6.331575 -14.944781 10.280794 -7.284625 10.280794 C -4.42525 10.280794 -1.976031 9.530794 -0.61275 8.749544 C -0.202594 8.546419 0.00053125 8.308137 -0.171344 7.933137 L -0.851031 6.163606 C -1.022906 5.788606 -1.292438 5.581575 -1.804156 5.819856 C -2.960406 6.331575 -4.733844 6.9097 -6.909625 6.9097 C -12.733844 6.9097 -15.253375 4.151887 -15.253375 -2.043425 C -15.253375 -8.305144 -12.663531 -11.031706 -7.183063 -11.031706 C -5.479938 -11.031706 -3.745563 -10.62155 -2.823688 -10.144988 L -2.823688 -3.098113 L -7.218219 -3.098113 C -7.694781 -3.098113 -7.933063 -2.894988 -7.933063 -2.449675 L -7.933063 -0.680144 C -7.933063 -0.238738 -7.694781 -0.00045625 -7.218219 -0.00045625 Z M 0.00053125 -0.00045625 " transform="matrix(1, 0, 0, -1, 23.019, 19.6597)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 28.636719 10.433594 C 28.636719 9.957031 28.84375 9.753906 29.285156 9.753906 L 31.667969 9.753906 C 32.144531 9.753906 32.382812 9.957031 32.382812 10.433594 L 32.382812 33.003906 C 32.382812 33.480469 32.144531 33.6875 31.667969 33.6875 L 29.285156 33.6875 C 28.84375 33.6875 28.636719 33.480469 28.636719 33.003906 Z M 28.636719 10.433594 "/>
+<g clip-path="url(#clip-3)">
+<path fill="none" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(100%,100%,100%)" stroke-opacity="1" stroke-miterlimit="10" d="M -0.00128125 0.00040625 C -0.00128125 0.476969 0.20575 0.680094 0.647156 0.680094 L 3.029969 0.680094 C 3.506531 0.680094 3.744812 0.476969 3.744812 0.00040625 L 3.744812 -22.569906 C 3.744812 -23.046469 3.506531 -23.2535 3.029969 -23.2535 L 0.647156 -23.2535 C 0.20575 -23.2535 -0.00128125 -23.046469 -0.00128125 -22.569906 Z M -0.00128125 0.00040625 " transform="matrix(1, 0, 0, -1, 28.638, 10.434)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 55.769531 19.660156 C 56.179688 19.660156 56.453125 19.898438 56.453125 20.339844 L 56.453125 31.199219 C 56.453125 31.8125 56.078125 32.152344 55.769531 32.359375 C 54.136719 33.34375 51.71875 34.027344 48.246094 34.027344 C 40.792969 34.027344 36.707031 30.113281 36.707031 21.703125 C 36.707031 13.328125 40.824219 9.378906 48.484375 9.378906 C 51.34375 9.378906 53.796875 10.128906 55.15625 10.910156 C 55.566406 11.113281 55.769531 11.351562 55.601562 11.726562 L 54.917969 13.496094 C 54.75 13.871094 54.476562 14.078125 53.96875 13.839844 C 52.808594 13.328125 51.039062 12.75 48.859375 12.75 C 43.039062 12.75 40.519531 15.507812 40.519531 21.703125 C 40.519531 27.964844 43.105469 30.691406 48.585938 30.691406 C 50.289062 30.691406 52.027344 30.28125 52.945312 29.804688 L 52.945312 22.757812 L 48.554688 22.757812 C 48.078125 22.757812 47.839844 22.554688 47.839844 22.109375 L 47.839844 20.339844 C 47.839844 19.898438 48.078125 19.660156 48.554688 19.660156 Z M 55.769531 19.660156 "/>
+<g clip-path="url(#clip-4)">
+<path fill="none" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(100%,100%,100%)" stroke-opacity="1" stroke-miterlimit="10" d="M -0.00126875 -0.00045625 C 0.408887 -0.00045625 0.682325 -0.238738 0.682325 -0.680144 L 0.682325 -11.539519 C 0.682325 -12.1528 0.307325 -12.492644 -0.00126875 -12.699675 C -1.634081 -13.68405 -4.05205 -14.367644 -7.524706 -14.367644 C -14.977831 -14.367644 -19.063769 -10.453581 -19.063769 -2.043425 C -19.063769 6.331575 -14.946581 10.280794 -7.286425 10.280794 C -4.42705 10.280794 -1.973925 9.530794 -0.61455 8.749544 C -0.204394 8.546419 -0.00126875 8.308137 -0.169238 7.933137 L -0.852831 6.163606 C -1.0208 5.788606 -1.294238 5.581575 -1.80205 5.819856 C -2.962206 6.331575 -4.731738 6.9097 -6.911425 6.9097 C -12.731738 6.9097 -15.251269 4.151887 -15.251269 -2.043425 C -15.251269 -8.305144 -12.665331 -11.031706 -7.184863 -11.031706 C -5.481738 -11.031706 -3.743456 -10.62155 -2.825488 -10.144988 L -2.825488 -3.098113 L -7.216113 -3.098113 C -7.692675 -3.098113 -7.930956 -2.894988 -7.930956 -2.449675 L -7.930956 -0.680144 C -7.930956 -0.238738 -7.692675 -0.00045625 -7.216113 -0.00045625 Z M -0.00126875 -0.00045625 " transform="matrix(1, 0, 0, -1, 55.7708, 19.6597)"/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 102.046875 20.457031 L 115.996094 20.457031 L 115.996094 20.234375 C 115.996094 15.84375 113.824219 12.714844 109.25 12.714844 C 104.902344 12.714844 102.320312 15.253906 102.046875 20.457031 M 116.539062 29.5625 C 117.039062 29.289062 117.355469 29.5625 117.535156 29.972656 L 118.214844 31.644531 C 118.304688 32.050781 118.078125 32.28125 117.71875 32.460938 C 115.859375 33.410156 113.28125 34.132812 110.425781 34.132812 C 102.953125 34.132812 98.425781 29.425781 98.425781 21.90625 C 98.425781 13.984375 102.636719 9.59375 109.25 9.59375 C 115.953125 9.59375 119.527344 14.164062 119.527344 20.507812 L 119.527344 22.769531 C 119.527344 23.3125 119.304688 23.492188 118.757812 23.492188 L 102.046875 23.492188 C 102.367188 27.933594 105.625 31.011719 110.609375 31.011719 C 113.234375 31.011719 114.820312 30.46875 116.539062 29.5625 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 144.808594 32.871094 C 144.808594 33.367188 144.582031 33.59375 144.085938 33.59375 L 141.867188 33.59375 C 141.367188 33.59375 141.144531 33.367188 141.144531 32.871094 L 141.144531 18.605469 C 141.144531 15.070312 139.554688 12.988281 135.390625 12.988281 C 131.042969 12.988281 128.371094 15.660156 128.371094 19.691406 L 128.371094 32.871094 C 128.371094 33.367188 128.144531 33.59375 127.648438 33.59375 L 125.425781 33.59375 C 124.929688 33.59375 124.75 33.367188 124.75 32.871094 L 124.75 10.859375 C 124.75 10.363281 124.929688 10.132812 125.425781 10.132812 L 127.601562 10.132812 C 128.101562 10.132812 128.324219 10.363281 128.324219 10.816406 L 128.371094 13.757812 C 129.367188 11.855469 131.496094 9.59375 136.386719 9.59375 C 142.046875 9.59375 144.808594 12.945312 144.808594 18.105469 Z M 144.808594 32.871094 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 153.472656 20.457031 L 167.421875 20.457031 L 167.421875 20.234375 C 167.421875 15.84375 165.246094 12.714844 160.675781 12.714844 C 156.328125 12.714844 153.746094 15.253906 153.472656 20.457031 M 167.964844 29.5625 C 168.460938 29.289062 168.777344 29.5625 168.960938 29.972656 L 169.640625 31.644531 C 169.730469 32.050781 169.503906 32.28125 169.140625 32.460938 C 167.285156 33.410156 164.703125 34.132812 161.851562 34.132812 C 154.378906 34.132812 149.851562 29.425781 149.851562 21.90625 C 149.851562 13.984375 154.0625 9.59375 160.675781 9.59375 C 167.375 9.59375 170.953125 14.164062 170.953125 20.507812 L 170.953125 22.769531 C 170.953125 23.3125 170.726562 23.492188 170.183594 23.492188 L 153.472656 23.492188 C 153.789062 27.933594 157.050781 31.011719 162.03125 31.011719 C 164.65625 31.011719 166.242188 30.46875 167.964844 29.5625 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 179.164062 10.132812 C 179.660156 10.132812 179.890625 10.363281 179.890625 10.816406 L 179.890625 15.253906 C 180.660156 13.214844 183.195312 10.046875 187.539062 10.046875 C 187.859375 10.046875 188.085938 10.132812 188.085938 10.589844 L 188.085938 13.441406 C 188.085938 13.894531 187.90625 14.027344 187.496094 14.027344 C 187.222656 14.027344 186.996094 13.9375 186.410156 13.9375 C 182.648438 13.9375 179.890625 18.242188 179.890625 22.453125 L 179.890625 32.871094 C 179.890625 33.367188 179.660156 33.59375 179.164062 33.59375 L 176.945312 33.59375 C 176.445312 33.59375 176.21875 33.367188 176.21875 32.871094 L 176.21875 10.859375 C 176.21875 10.363281 176.445312 10.132812 176.945312 10.132812 Z M 179.164062 10.132812 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 200.773438 12.714844 C 196.652344 12.714844 193.980469 14.847656 193.980469 20.644531 C 193.980469 26.4375 196.652344 28.519531 200.773438 28.519531 C 204.984375 28.519531 207.65625 25.714844 207.65625 20.328125 C 207.65625 15.027344 204.984375 12.714844 200.773438 12.714844 M 211.277344 30.242188 C 211.277344 35.949219 207.109375 39.117188 200.773438 39.117188 C 197.875 39.117188 195.019531 38.753906 192.847656 37.757812 C 192.53125 37.621094 192.257812 37.398438 192.394531 37.03125 L 193.074219 35.179688 C 193.210938 34.769531 193.390625 34.542969 193.933594 34.722656 C 196.019531 35.539062 198.28125 35.902344 200.683594 35.902344 C 204.941406 35.902344 207.699219 33.773438 207.699219 30.015625 L 207.699219 27.433594 C 206.480469 30.152344 203.445312 31.554688 200.140625 31.554688 C 194.570312 31.554688 190.265625 28.292969 190.265625 20.644531 C 190.265625 12.988281 194.386719 9.59375 200.003906 9.59375 C 203.355469 9.59375 206.523438 11.175781 207.699219 13.578125 L 207.699219 10.816406 C 207.746094 10.363281 207.929688 10.132812 208.425781 10.132812 L 210.601562 10.132812 C 211.097656 10.132812 211.277344 10.363281 211.277344 10.859375 Z M 211.277344 30.242188 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 228.457031 32.097656 C 227.007812 36.851562 225.332031 38.753906 220.890625 38.753906 C 219.625 38.753906 218.265625 38.53125 217.585938 38.257812 C 217.222656 38.121094 216.953125 37.941406 217.042969 37.578125 L 217.585938 35.71875 C 217.722656 35.3125 217.859375 35.179688 218.355469 35.222656 C 218.808594 35.3125 219.398438 35.539062 220.667969 35.539062 C 222.792969 35.539062 223.882812 34.542969 223.882812 33.050781 C 223.882812 32.597656 223.792969 32.097656 223.5625 31.554688 L 215.503906 10.90625 C 215.324219 10.453125 215.503906 10.132812 216 10.132812 L 218.402344 10.132812 C 218.851562 10.132812 219.035156 10.40625 219.171875 10.816406 L 223.699219 22.722656 L 226.054688 29.742188 L 226.144531 29.742188 L 228.273438 22.722656 L 232.078125 10.816406 C 232.210938 10.40625 232.394531 10.132812 232.847656 10.132812 L 235.246094 10.132812 C 235.746094 10.132812 235.925781 10.453125 235.792969 10.90625 Z M 228.457031 32.097656 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 141.851562 47.09375 L 141.253906 50.476562 L 145.230469 50.476562 C 145.332031 50.476562 145.386719 50.511719 145.367188 50.625 L 145.296875 51.019531 C 145.277344 51.132812 145.207031 51.179688 145.109375 51.179688 L 140.523438 51.179688 C 140.414062 51.179688 140.371094 51.132812 140.390625 51.019531 L 141.863281 42.671875 C 141.878906 42.570312 141.9375 42.523438 142.039062 42.523438 L 146.597656 42.523438 C 146.710938 42.523438 146.75 42.570312 146.734375 42.671875 L 146.664062 43.066406 C 146.644531 43.175781 146.585938 43.226562 146.472656 43.226562 L 142.53125 43.226562 L 141.972656 46.398438 L 145.789062 46.398438 C 145.890625 46.398438 145.929688 46.460938 145.910156 46.558594 L 145.84375 46.929688 C 145.828125 47.027344 145.769531 47.09375 145.667969 47.09375 Z M 141.851562 47.09375 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 152.191406 51.03125 C 152.175781 51.132812 152.128906 51.179688 152.019531 51.179688 L 151.597656 51.179688 C 151.5 51.179688 151.457031 51.132812 151.472656 51.03125 L 152.179688 47.042969 C 152.359375 46.003906 151.992188 45.375 150.777344 45.375 C 149.519531 45.375 148.535156 46.175781 148.335938 47.328125 L 147.679688 51.03125 C 147.664062 51.132812 147.605469 51.179688 147.507812 51.179688 L 147.074219 51.179688 C 146.976562 51.179688 146.945312 51.132812 146.964844 51.03125 L 148.027344 45.003906 C 148.046875 44.894531 148.09375 44.84375 148.191406 44.84375 L 148.609375 44.84375 C 148.710938 44.84375 148.75 44.894531 148.734375 44.992188 L 148.574219 45.957031 C 148.933594 45.398438 149.675781 44.695312 151.058594 44.695312 C 152.582031 44.695312 153.152344 45.585938 152.910156 46.957031 Z M 152.191406 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 155.121094 47.734375 L 159.25 47.734375 L 159.269531 47.636719 C 159.503906 46.289062 159.042969 45.324219 157.671875 45.324219 C 156.335938 45.324219 155.460938 46.152344 155.121094 47.734375 M 158.800781 50.289062 C 158.921875 50.230469 158.972656 50.289062 158.996094 50.378906 L 159.0625 50.699219 C 159.070312 50.785156 159.023438 50.835938 158.933594 50.871094 C 158.390625 51.132812 157.664062 51.328125 156.886719 51.328125 C 154.910156 51.328125 153.992188 50.066406 154.355469 48.019531 C 154.726562 45.90625 156.003906 44.695312 157.785156 44.695312 C 159.5625 44.695312 160.269531 45.957031 159.964844 47.683594 L 159.875 48.191406 C 159.855469 48.300781 159.796875 48.339844 159.6875 48.339844 L 155.015625 48.339844 C 154.824219 49.773438 155.539062 50.699219 157.035156 50.699219 C 157.761719 50.699219 158.285156 50.550781 158.800781 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 162.714844 44.84375 C 162.8125 44.84375 162.851562 44.894531 162.835938 44.992188 L 162.597656 46.351562 C 162.910156 45.757812 163.792969 44.820312 165.015625 44.820312 C 165.089844 44.820312 165.136719 44.832031 165.121094 44.929688 L 165.027344 45.460938 C 165.007812 45.558594 164.953125 45.597656 164.867188 45.597656 C 164.816406 45.597656 164.757812 45.574219 164.636719 45.574219 C 163.597656 45.574219 162.523438 46.769531 162.3125 47.957031 L 161.769531 51.03125 C 161.753906 51.132812 161.695312 51.179688 161.597656 51.179688 L 161.175781 51.179688 C 161.0625 51.179688 161.023438 51.132812 161.039062 51.03125 L 162.105469 45.003906 C 162.121094 44.894531 162.179688 44.84375 162.292969 44.84375 Z M 162.714844 44.84375 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 168.574219 45.324219 C 167.324219 45.324219 166.441406 46.054688 166.15625 47.683594 C 165.867188 49.316406 166.496094 50.03125 167.742188 50.03125 C 169.003906 50.03125 169.9375 49.15625 170.210938 47.597656 C 170.480469 46.066406 169.832031 45.324219 168.574219 45.324219 M 170.453125 50.289062 C 170.175781 51.871094 168.96875 52.6875 167.3125 52.6875 C 166.558594 52.6875 165.800781 52.5625 165.269531 52.292969 C 165.214844 52.253906 165.167969 52.21875 165.207031 52.144531 L 165.40625 51.785156 C 165.449219 51.699219 165.492188 51.648438 165.597656 51.6875 C 166.132812 51.933594 166.757812 52.046875 167.414062 52.046875 C 168.660156 52.046875 169.535156 51.441406 169.746094 50.242188 L 169.902344 49.363281 C 169.421875 50.179688 168.511719 50.648438 167.523438 50.648438 C 165.992188 50.648438 165.074219 49.6875 165.425781 47.683594 C 165.777344 45.683594 167.003906 44.695312 168.546875 44.695312 C 169.539062 44.695312 170.316406 45.175781 170.507812 45.929688 L 170.671875 44.992188 C 170.6875 44.894531 170.746094 44.84375 170.855469 44.84375 L 171.265625 44.84375 C 171.378906 44.84375 171.40625 44.894531 171.386719 45.003906 Z M 170.453125 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 174.960938 50.933594 C 174.371094 52.105469 173.828125 52.589844 172.792969 52.589844 C 172.457031 52.589844 172.160156 52.527344 171.984375 52.464844 C 171.914062 52.441406 171.863281 52.390625 171.898438 52.316406 L 172.0625 51.957031 C 172.101562 51.871094 172.148438 51.835938 172.253906 51.859375 C 172.382812 51.882812 172.558594 51.945312 172.867188 51.945312 C 173.683594 51.945312 174.132812 51.292969 174.027344 50.773438 L 172.792969 45.015625 C 172.773438 44.917969 172.808594 44.84375 172.921875 44.84375 L 173.378906 44.84375 C 173.476562 44.84375 173.503906 44.90625 173.527344 44.992188 L 174.226562 48.375 L 174.585938 50.402344 L 174.609375 50.402344 L 175.609375 48.375 L 177.34375 44.992188 C 177.382812 44.90625 177.433594 44.84375 177.53125 44.84375 L 177.988281 44.84375 C 178.101562 44.84375 178.125 44.917969 178.070312 45.015625 Z M 174.960938 50.933594 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 186.253906 48.5 L 184.292969 43.855469 L 183.03125 51.019531 C 183.011719 51.132812 182.953125 51.179688 182.839844 51.179688 L 182.398438 51.179688 C 182.285156 51.179688 182.242188 51.132812 182.265625 51.019531 L 183.734375 42.671875 C 183.753906 42.570312 183.8125 42.523438 183.921875 42.523438 L 184.40625 42.523438 C 184.503906 42.523438 184.5625 42.546875 184.585938 42.621094 L 186.652344 47.449219 L 190.417969 42.621094 C 190.46875 42.546875 190.535156 42.523438 190.632812 42.523438 L 191.117188 42.523438 C 191.226562 42.523438 191.253906 42.570312 191.238281 42.671875 L 189.765625 51.019531 C 189.746094 51.132812 189.699219 51.179688 189.589844 51.179688 L 189.132812 51.179688 C 189.03125 51.179688 188.992188 51.132812 189.011719 51.019531 L 190.273438 43.855469 L 186.675781 48.5 C 186.613281 48.574219 186.53125 48.609375 186.445312 48.609375 C 186.359375 48.609375 186.292969 48.574219 186.253906 48.5 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 196.539062 48.019531 C 194.398438 48.09375 192.664062 48.179688 192.433594 49.488281 C 192.3125 50.167969 192.71875 50.6875 193.753906 50.6875 C 195.289062 50.6875 196.222656 49.796875 196.410156 48.734375 Z M 196.710938 51.03125 C 196.691406 51.132812 196.636719 51.179688 196.535156 51.179688 L 196.140625 51.179688 C 196.042969 51.179688 196.011719 51.132812 196.03125 51.03125 L 196.210938 50.007812 C 195.890625 50.488281 195.15625 51.292969 193.539062 51.292969 C 192.152344 51.292969 191.539062 50.574219 191.726562 49.511719 C 192.035156 47.746094 193.996094 47.5 196.640625 47.4375 L 196.722656 46.957031 C 196.917969 45.855469 196.539062 45.351562 195.265625 45.351562 C 194.472656 45.351562 193.761719 45.535156 193.164062 45.769531 C 193.070312 45.808594 193.003906 45.769531 192.996094 45.683594 L 192.945312 45.324219 C 192.9375 45.238281 192.980469 45.191406 193.0625 45.152344 C 193.703125 44.894531 194.601562 44.695312 195.429688 44.695312 C 197.136719 44.695312 197.691406 45.460938 197.433594 46.933594 Z M 196.710938 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 203.902344 51.03125 C 203.886719 51.132812 203.839844 51.179688 203.730469 51.179688 L 203.308594 51.179688 C 203.210938 51.179688 203.167969 51.132812 203.1875 51.03125 L 203.890625 47.042969 C 204.074219 46.003906 203.703125 45.375 202.492188 45.375 C 201.230469 45.375 200.25 46.175781 200.046875 47.328125 L 199.390625 51.03125 C 199.375 51.132812 199.316406 51.179688 199.21875 51.179688 L 198.785156 51.179688 C 198.6875 51.179688 198.65625 51.132812 198.675781 51.03125 L 199.738281 45.003906 C 199.757812 44.894531 199.804688 44.84375 199.902344 44.84375 L 200.320312 44.84375 C 200.421875 44.84375 200.460938 44.894531 200.445312 44.992188 L 200.289062 45.957031 C 200.644531 45.398438 201.386719 44.695312 202.773438 44.695312 C 204.292969 44.695312 204.863281 45.585938 204.621094 46.957031 Z M 203.902344 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 210.480469 48.019531 C 208.339844 48.09375 206.605469 48.179688 206.375 49.488281 C 206.253906 50.167969 206.660156 50.6875 207.695312 50.6875 C 209.230469 50.6875 210.164062 49.796875 210.351562 48.734375 Z M 210.652344 51.03125 C 210.632812 51.132812 210.578125 51.179688 210.476562 51.179688 L 210.082031 51.179688 C 209.984375 51.179688 209.953125 51.132812 209.972656 51.03125 L 210.152344 50.007812 C 209.832031 50.488281 209.097656 51.292969 207.480469 51.292969 C 206.09375 51.292969 205.480469 50.574219 205.667969 49.511719 C 205.976562 47.746094 207.9375 47.5 210.582031 47.4375 L 210.664062 46.957031 C 210.859375 45.855469 210.480469 45.351562 209.207031 45.351562 C 208.414062 45.351562 207.703125 45.535156 207.105469 45.769531 C 207.011719 45.808594 206.945312 45.769531 206.9375 45.683594 L 206.886719 45.324219 C 206.878906 45.238281 206.921875 45.191406 207.003906 45.152344 C 207.644531 44.894531 208.542969 44.695312 209.371094 44.695312 C 211.078125 44.695312 211.632812 45.460938 211.375 46.933594 Z M 210.652344 51.03125 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 216.007812 45.324219 C 214.761719 45.324219 213.875 46.054688 213.589844 47.683594 C 213.300781 49.316406 213.929688 50.03125 215.179688 50.03125 C 216.4375 50.03125 217.371094 49.15625 217.648438 47.597656 C 217.917969 46.066406 217.269531 45.324219 216.007812 45.324219 M 217.890625 50.289062 C 217.609375 51.871094 216.402344 52.6875 214.746094 52.6875 C 213.992188 52.6875 213.238281 52.5625 212.703125 52.292969 C 212.648438 52.253906 212.605469 52.21875 212.644531 52.144531 L 212.84375 51.785156 C 212.882812 51.699219 212.929688 51.648438 213.03125 51.6875 C 213.570312 51.933594 214.195312 52.046875 214.847656 52.046875 C 216.097656 52.046875 216.96875 51.441406 217.179688 50.242188 L 217.335938 49.363281 C 216.859375 50.179688 215.945312 50.648438 214.957031 50.648438 C 213.425781 50.648438 212.507812 49.6875 212.859375 47.683594 C 213.214844 45.683594 214.4375 44.695312 215.984375 44.695312 C 216.972656 44.695312 217.75 45.175781 217.941406 45.929688 L 218.105469 44.992188 C 218.125 44.894531 218.183594 44.84375 218.292969 44.84375 L 218.699219 44.84375 C 218.8125 44.84375 218.839844 44.894531 218.820312 45.003906 Z M 217.890625 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 220.75 47.734375 L 224.878906 47.734375 L 224.894531 47.636719 C 225.132812 46.289062 224.671875 45.324219 223.300781 45.324219 C 221.964844 45.324219 221.089844 46.152344 220.75 47.734375 M 224.425781 50.289062 C 224.550781 50.230469 224.601562 50.289062 224.621094 50.378906 L 224.6875 50.699219 C 224.699219 50.785156 224.652344 50.835938 224.558594 50.871094 C 224.019531 51.132812 223.292969 51.328125 222.515625 51.328125 C 220.535156 51.328125 219.621094 50.066406 219.980469 48.019531 C 220.355469 45.90625 221.632812 44.695312 223.410156 44.695312 C 225.191406 44.695312 225.894531 45.957031 225.589844 47.683594 L 225.5 48.191406 C 225.480469 48.300781 225.425781 48.339844 225.316406 48.339844 L 220.644531 48.339844 C 220.453125 49.773438 221.164062 50.699219 222.660156 50.699219 C 223.390625 50.699219 223.910156 50.550781 224.425781 50.289062 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 230.171875 45.335938 C 228.75 45.335938 227.855469 46.191406 227.535156 48.003906 C 227.21875 49.808594 227.808594 50.660156 229.230469 50.660156 C 230.640625 50.660156 231.632812 49.734375 231.9375 48.003906 C 232.242188 46.277344 231.578125 45.335938 230.171875 45.335938 M 231.597656 49.933594 C 231.050781 50.859375 230.105469 51.304688 228.992188 51.304688 C 227.277344 51.304688 226.410156 50.179688 226.796875 48.003906 C 227.179688 45.832031 228.441406 44.695312 230.160156 44.695312 C 231.273438 44.695312 232.0625 45.191406 232.261719 46.089844 L 232.867188 42.65625 C 232.886719 42.558594 232.941406 42.523438 233.039062 42.523438 L 233.460938 42.523438 C 233.570312 42.523438 233.613281 42.558594 233.597656 42.65625 L 232.117188 51.03125 C 232.101562 51.128906 232.042969 51.179688 231.933594 51.179688 L 231.511719 51.179688 C 231.414062 51.179688 231.386719 51.128906 231.402344 51.03125 Z M 231.597656 49.933594 "/>
+<path fill-rule="nonzero" fill="rgb(100%,100%,100%)" fill-opacity="1" d="M 234.183594 50.179688 C 234.203125 50.082031 234.261719 50.03125 234.359375 50.03125 L 235.015625 50.03125 C 235.125 50.03125 235.15625 50.082031 235.136719 50.179688 L 234.988281 51.03125 C 234.96875 51.132812 234.921875 51.179688 234.824219 51.179688 L 234.15625 51.179688 C 234.046875 51.179688 234.015625 51.132812 234.035156 51.03125 Z M 234.183594 50.179688 "/>
+</svg>
+      </div>
+      <div class="ci-mast-divider"></div>
+      <div class="ci-mast-title-block">
+        <div class="ci-mast-logo">COMPETITIVE INTELLIGENCE</div>
+        <div class="ci-mast-sub">ENERGY MANAGEMENT CONSULTANCY LANDSCAPE · MAY 2026</div>
+      </div>
+    </div>
+    <div class="ci-mast-r">
+      <div class="ci-mast-firm">OWNER-OPERATOR EDITION</div>
+      <div>CONFIDENTIAL · MAY 29, 2026</div>
+      <div style="color:var(--muted)">PAGE 4 OF 4</div>
+    </div>
+  </div>
+
+  <div class="page-inner">
+  <div class="gig-box">
+    <div class="gig-box-hd">
+      <div>
+        <div class="gig-box-title">GIG ENERGY CORPORATION — YOUR MARKET POSITION</div>
+        <div class="gig-box-sub">BOUTIQUE C&amp;I ENERGY MANAGEMENT · EST. ~NOV 2021 · GROWTH PHASE</div>
+      </div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--dim);text-align:right;line-height:1.9">
+        <span style="color:var(--gig-green)">SEGMENT:</span> Large C&amp;I Energy Management<br>
+        <span style="color:var(--gig-green)">MODEL:</span> Boutique / High-Touch Advisory<br>
+        <span style="color:var(--gig-green)">EDGE:</span> Speed · Customization · Integrated DER
+      </div>
+    </div>
+    <div class="gig-pillars">
+      <div class="gig-pillar"><div class="gig-pillar-ico">💰</div><div class="gig-pillar-lbl">COST &amp; RISK MGMT</div></div>
+      <div class="gig-pillar"><div class="gig-pillar-ico">📋</div><div class="gig-pillar-lbl">STRATEGIC PROCUREMENT</div></div>
+      <div class="gig-pillar"><div class="gig-pillar-ico">🌿</div><div class="gig-pillar-lbl">INTEGRATED SUSTAINABILITY</div></div>
+      <div class="gig-pillar"><div class="gig-pillar-ico">📊</div><div class="gig-pillar-lbl">DATA MANAGEMENT</div></div>
+      <div class="gig-pillar"><div class="gig-pillar-ico">⚡</div><div class="gig-pillar-lbl">DISTRIBUTED ENERGY RES.</div></div>
+    </div>
+    <div style="font-size:10.5px;color:#909090;line-height:1.65;font-style:italic">
+      Gig Energy sits at the intersection of five high-growth service lines simultaneously — a combination larger siloed firms cannot replicate with the same agility. At 4.5 years in, the firm is past early-stage risk and entering the credentialing phase where a few marquee case studies and targeted hires can trigger rapid scaling. The current market environment — volatile power prices, complex procurement windows, mandatory sustainability disclosure, and the DER buildout — is arguably the best backdrop for Gig Energy's value proposition since the firm's founding.
+    </div>
+  </div>
+
+  <div class="signal-strip">
+    <div class="signal"><div class="signal-val">$47B</div><div class="signal-lbl">US C&amp;I ENERGY MGMT MARKET SIZE · 2026E · ~9% CAGR</div></div>
+    <div class="signal"><div class="signal-val">68%</div><div class="signal-lbl">F500 FIRMS WITH MANDATORY SCOPE 2 DISCLOSURE · UP FROM 41% IN 2022</div></div>
+    <div class="signal"><div class="signal-val">3.4×</div><div class="signal-lbl">GROWTH IN C&amp;I VIRTUAL PPA DEAL VOLUME · 2023 TO 2025</div></div>
+    <div class="signal"><div class="signal-val">$2.1T</div><div class="signal-lbl">IRA-DRIVEN CLEAN ENERGY INVESTMENT THROUGH 2032</div></div>
+  </div>
+
+  <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--dim);margin-bottom:7px;text-transform:uppercase">
+    Competitor Landscape &nbsp;·&nbsp;
+    <span class="tier-1" style="font-size:8px">TIER 1</span> Enterprise/National &nbsp;
+    <span class="tier-2" style="font-size:8px">TIER 2</span> Mid-Market Regional &nbsp;
+    <span class="tier-3" style="font-size:8px">TIER 3</span> Boutique/Niche
+  </div>
+
+  <div class="ci-grid">
+    <div class="ci-card">
+      <div class="ci-card-hd"><div><div class="ci-card-name">AMERESCO</div><div class="ci-card-type">Integrated Energy Solutions / ESCO</div></div><div class="ci-tier tier-1">TIER 1</div></div>
+      <div class="ci-card-body">
+        <div class="ci-row"><div class="ci-lbl">Focus</div><div class="ci-val">Energy efficiency, federal/muni clients, DER, EV infrastructure</div></div>
+        <div class="ci-row"><div class="ci-lbl">Scale</div><div class="ci-val">~$1.6B revenue; publicly traded (AMRC); 1,000+ employees</div></div>
+        <div class="ci-row"><div class="ci-lbl">Weakness vs. Gig</div><div class="ci-val">Government-heavy; slow; less agile on C&amp;I procurement &amp; risk advisory</div></div>
+        <div class="ci-move"><div class="ci-move-lbl">LATEST MOVE</div>Expanding EV fleet electrification + battery storage-as-a-service for large commercial clients Q1 2026. Potential overlap with Gig's DER practice.</div>
+      </div>
+    </div>
+    <div class="ci-card">
+      <div class="ci-card-hd"><div><div class="ci-card-name">ENEL X / ENERNOC</div><div class="ci-card-type">Demand Response &amp; Energy Intelligence</div></div><div class="ci-tier tier-1">TIER 1</div></div>
+      <div class="ci-card-body">
+        <div class="ci-row"><div class="ci-lbl">Focus</div><div class="ci-val">Demand response aggregation, energy analytics SaaS, C&amp;I procurement</div></div>
+        <div class="ci-row"><div class="ci-lbl">Scale</div><div class="ci-val">Global (Enel parent); significant DR portfolio across PJM, ERCOT, NYISO</div></div>
+        <div class="ci-row"><div class="ci-lbl">Weakness vs. Gig</div><div class="ci-val">Software-first; account management diluted at scale; less hands-on advisory</div></div>
+        <div class="ci-move"><div class="ci-move-lbl">LATEST MOVE</div>Launched AI-driven energy procurement optimization platform for C&amp;I (Q4 2025). Aggressively targeting mid-market accounts — monitor their pricing model.</div>
+      </div>
+    </div>
+    <div class="ci-card">
+      <div class="ci-card-hd"><div><div class="ci-card-name">SCHNEIDER ELECTRIC</div><div class="ci-card-type">Global Energy &amp; Sustainability Advisory</div></div><div class="ci-tier tier-1">TIER 1</div></div>
+      <div class="ci-card-body">
+        <div class="ci-row"><div class="ci-lbl">Focus</div><div class="ci-val">Energy procurement, VPPA advisory, Scope 2/3 reporting, global C&amp;I</div></div>
+        <div class="ci-row"><div class="ci-lbl">Scale</div><div class="ci-val">€36B global revenue; dedicated C&amp;I advisory arm competes directly</div></div>
+        <div class="ci-row"><div class="ci-lbl">Weakness vs. Gig</div><div class="ci-val">Brand-premium pricing; bureaucratic; not locally relationship-driven</div></div>
+        <div class="ci-move"><div class="ci-move-lbl">LATEST MOVE</div>Acquired a boutique sustainability data firm Q1 2026 — directly overlapping Gig's data management + sustainability pillars. Lock in clients now.</div>
+      </div>
+    </div>
+    <div class="ci-card">
+      <div class="ci-card-hd"><div><div class="ci-card-name">ENVERUS INTELLIGENCE</div><div class="ci-card-type">Energy Data &amp; Market Analytics</div></div><div class="ci-tier tier-2">TIER 2</div></div>
+      <div class="ci-card-body">
+        <div class="ci-row"><div class="ci-lbl">Focus</div><div class="ci-val">Energy market data, price forecasting, commercial intelligence SaaS</div></div>
+        <div class="ci-row"><div class="ci-lbl">Scale</div><div class="ci-val">~$500M revenue; PE-backed; fast-growing SaaS platform</div></div>
+        <div class="ci-row"><div class="ci-lbl">Weakness vs. Gig</div><div class="ci-val">Data/software only — no advisory execution; clients still need Gig to act on insights</div></div>
+        <div class="ci-move"><div class="ci-move-lbl">LATEST MOVE</div>Launched C&amp;I retail energy analytics dashboard (May 2026). Potential disintermediation risk — or a strategic partnership opportunity worth exploring.</div>
+      </div>
+    </div>
+    <div class="ci-card">
+      <div class="ci-card-hd"><div><div class="ci-card-name">CUSTOMIZED ENERGY SOLUTIONS</div><div class="ci-card-type">C&amp;I Energy Advisory &amp; Procurement</div></div><div class="ci-tier tier-2">TIER 2</div></div>
+      <div class="ci-card-body">
+        <div class="ci-row"><div class="ci-lbl">Focus</div><div class="ci-val">Load management, procurement, retail advisory; strong PJM &amp; MISO presence</div></div>
+        <div class="ci-row"><div class="ci-lbl">Scale</div><div class="ci-val">~$50–80M revenue est.; regional; private; Philadelphia-based</div></div>
+        <div class="ci-row"><div class="ci-lbl">Weakness vs. Gig</div><div class="ci-val">Limited sustainability/DER capability; weaker in ERCOT &amp; Western markets</div></div>
+        <div class="ci-move"><div class="ci-move-lbl">LATEST MOVE</div>Expanded retail broker relationships in MISO South and SPP (early 2026). Geographic expansion to watch if Gig's C&amp;I clients are in those footprints.</div>
+      </div>
+    </div>
+    <div class="ci-card">
+      <div class="ci-card-hd"><div><div class="ci-card-name">REGIONAL BOUTIQUES</div><div class="ci-card-type">Independent Advisors &amp; Brokers</div></div><div class="ci-tier tier-3">TIER 3</div></div>
+      <div class="ci-card-body">
+        <div class="ci-row"><div class="ci-lbl">Examples</div><div class="ci-val">Transparent Energy, Glacier Energy, Usave Energy, regional broker-consultants</div></div>
+        <div class="ci-row"><div class="ci-lbl">Focus</div><div class="ci-val">Procurement brokerage, transaction-focused; limited risk mgmt or DER depth</div></div>
+        <div class="ci-row"><div class="ci-lbl">Weakness vs. Gig</div><div class="ci-val">Broker incentive misalignment; no sustainability or data integration</div></div>
+        <div class="ci-move"><div class="ci-move-lbl">GIG OPPORTUNITY</div>Clients outgrowing a pure broker are a direct pipeline. Position Gig as the upgrade path: retained advisory vs. transactional brokerage.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-bottom:10px">
+    <div class="matrix-card opp">
+      <div class="matrix-hd"><div class="matrix-hd-ttl">▲ GROWTH OPPORTUNITIES FOR GIG</div></div>
+      <div class="matrix-body">
+        <div class="m-item"><div class="m-ico">🟢</div><div><strong>SEC Climate Disclosure Rules</strong> — Mandatory Scope 1/2 reporting creates immediate demand for Gig's data management + sustainability pillar. Clients need advisory infrastructure now.</div></div>
+        <div class="m-item"><div class="m-ico">🟢</div><div><strong>C&amp;I Virtual PPA Surge</strong> — Deal volume 3.4× from 2023–2025. Large clients want neutral advisors to structure, negotiate, and manage VPPAs. Gig's independence is a direct advantage.</div></div>
+        <div class="m-item"><div class="m-ico">🟢</div><div><strong>ERCOT 4CP Management</strong> — Texas industrial clients face major transmission cost exposure each summer peak. Specialized advisory is high-value recurring revenue with strong retention.</div></div>
+        <div class="m-item"><div class="m-ico">🟢</div><div><strong>Battery Storage Advisory</strong> — IRA ITC adders make behind-the-meter storage increasingly economic. Clients need an independent advisor, not a vendor with a preferred product.</div></div>
+        <div class="m-item"><div class="m-ico">🟢</div><div><strong>Data Center / AI Load Growth</strong> — Explosive hyperscaler demand creates a new class of large C&amp;I buyers who need exactly what Gig offers: integrated procurement, risk, and sustainability.</div></div>
+      </div>
+    </div>
+    <div class="matrix-card thr">
+      <div class="matrix-hd"><div class="matrix-hd-ttl">▼ COMPETITIVE THREATS TO MONITOR</div></div>
+      <div class="matrix-body">
+        <div class="m-item"><div class="m-ico">🔴</div><div><strong>Enel X AI Procurement Platform</strong> — If their analytics platform gains traction at lower price points, it could commoditize Gig's procurement advisory. Counter: position execution &amp; relationship layer as irreplaceable.</div></div>
+        <div class="m-item"><div class="m-ico">🔴</div><div><strong>Schneider's Data Mgmt Acquisition</strong> — Q1 2026 acquisition signals they are building exactly what Gig offers. Their global sales force can reach accounts faster — lock in clients now.</div></div>
+        <div class="m-item"><div class="m-ico">🟡</div><div><strong>Talent Competition</strong> — Rapid industry growth means experienced energy advisors and sustainability analysts are being recruited aggressively. Retention is critical at Gig's stage.</div></div>
+        <div class="m-item"><div class="m-ico">🟡</div><div><strong>Retail Supplier In-House Advisory</strong> — NRG, Constellation, Vistra expanding in-house advisory blurs supplier/advisor lines. Reinforce Gig's neutrality and independence in every proposal.</div></div>
+        <div class="m-item"><div class="m-ico">🟡</div><div><strong>Procurement Commoditization</strong> — Basic energy brokerage pricing is under pressure. Gig must continue moving up the value chain into risk, DER, and sustainability.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <div class="actions-ttl">GIG ENERGY — IMMEDIATE STRATEGIC ACTIONS THIS WEEK</div>
+    <div class="action-grid">
+      <div class="a-item"><div class="a-n">01</div><div><strong>Deploy this briefing to your top 10 C&amp;I clients</strong> — branded as a Gig Energy market intelligence report. Nothing demonstrates expertise and justifies retainer fees faster than showing clients intelligence they weren't getting elsewhere.</div></div>
+      <div class="a-item"><div class="a-n">02</div><div><strong>Reach out to Texas-based C&amp;I clients now</strong> — the heat ridge building for June 3–5 is a real 4CP event window. Proactive contact before the peak positions Gig as indispensable; competitors who miss this window lose credibility.</div></div>
+      <div class="a-item"><div class="a-n">03</div><div><strong>Develop a SEC climate disclosure readiness offer</strong> — mandatory reporting runway for large accelerated filers is shortening fast. Schneider's acquisition news is social proof of market demand; capitalize on it now.</div></div>
+      <div class="a-item"><div class="a-n">04</div><div><strong>Review client natural gas contract exposure</strong> — with HH near $3.05 and summer strip at $3.00–$3.20, this may be an attractive window to lock in fixed-price supply before the heat risk premium arrives.</div></div>
+      <div class="a-item"><div class="a-n">05</div><div><strong>Target clients outgrowing pure brokers</strong> — identify 3–5 companies using transaction-only brokers and initiate conversations around a full retained advisory relationship.</div></div>
+      <div class="a-item"><div class="a-n">06</div><div><strong>Monitor Enel X and Schneider pricing closely</strong> — subscribe to their client-facing communications and ensure Gig's value proposition is explicitly differentiated in every proposal template.</div></div>
+    </div>
+  </div>
+  </div><!-- /page-inner -->
+
+  <div class="foot-strip">
+    <span>GIG ENERGY CORPORATION · ENERGYPULSE · CONFIDENTIAL · MAY 29, 2026</span>
+    <span>PAGE 4 OF 4 · END OF BRIEFING</span>
+    <span>CONFIDENTIAL · PROPRIETARY · NOT FOR DISTRIBUTION</span>
+  </div>
+</div>
+
+</body>
+</html>
